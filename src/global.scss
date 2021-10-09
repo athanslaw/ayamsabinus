@@ -1,0 +1,83 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+
+
+
+
+.scoreBox{
+    position: absolute;
+    top: 2.5vh;
+    right: 2.5vh;
+    z-index: 2000;
+    height: 9vw;
+    width: 30vw;
+    // background-color: red;
+    background-image: url(assets/landingpage/cowriebar.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scoreHolder{
+    position: relative;
+    height: 70%;
+    width: 50%;
+    bottom: 2px;
+    // background-color: greenyellow;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 1px;
+    padding-right: 6px;
+    padding-bottom: 5px;
+}
+
+
+.score{
+    font-size: 0.8rem !important;
+    color: white;
+}
+
+.toast-error-class {
+    --button-color: #cc0000;
+    --color:#885555;
+    --border-radius:3px;
+    --background: #eee;
+}
+
+.toast-success-class {
+    --button-color: #336633;
+    --color:#668866;
+    --border-radius:3px;
+    --background: #eee;
+}

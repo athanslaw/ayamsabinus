@@ -118,7 +118,7 @@ export class AwoofComponent implements OnInit {
   buy(tag, price){
      if (this.sabinusId == null) {
         // alert("User not logged in");
-        this.toast_error("User not logged in");
+        this.toast("User not logged in");
       }
 
       this.ngxService.start();

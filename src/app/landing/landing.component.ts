@@ -289,7 +289,7 @@ export class LandingComponent implements AfterViewInit {
 
       this.storage.set('juju', res["user"][0]["juju"]);
       this.juju = res["user"][0]["juju"];
-      this.toast_success("Login successful..");
+      this.toast("Login successful..");
     },(err)=>{
       this.showNetwork();
     });
@@ -639,7 +639,8 @@ backupProfile(){
 
 introducePadiplay(){
   if (this.tokens < 1) {
-    this.toast_error("Ya totem no reach. Make you try buy");
+
+    this.toast("Ya totem no reach. Make you try buy");
     return;
   }else{
 
@@ -1059,7 +1060,7 @@ dailyAwoof(){
     }
 
     let diffDays = this.daydifference(new Date(val),d);
-    if (diffDays) {
+    if (!diffDays) {
       this.currentPopup=2;
         this.generateAwoofNumbers();
         $(".tumbumPane").fadeIn();
@@ -1148,7 +1149,7 @@ async selectAwoof2(){
   this.awoofCount2 = 0;
   let perk,perkNumber;
   if (!this.sabinusId) {
-    this.toast_error("You neva login")
+    this.toast("You neva login")
     this.closeTumbum();
     return;
   }
@@ -1321,6 +1322,7 @@ showProfile(){
  }
 
 toast(tm){
+  console.log("HEre toast");
   this.toastMessage = tm;
   $(".toast").fadeIn();
   setTimeout(() => {
@@ -1428,7 +1430,7 @@ skip(){
 }
 
 reward(){
-  this.toast_success("reward: 1 padiplay token");
+  this.toast("reward: 1 padiplay token");
   this.soundService.playCowrieSound();
 
   this.setAddPerks("tokens", 1)

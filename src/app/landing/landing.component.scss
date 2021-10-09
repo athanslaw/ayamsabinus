@@ -954,15 +954,18 @@
 
   .toast{
     position: absolute;
+    left: 2vw;
     z-index: 20000;
-    bottom: 5vh;
-    width: 100vw;
+    bottom: 40vh;
+    width: 96vw;
     height: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 30px;
     display: none;
+    border-style:solid;
+    border-color:whitesmoke;
+    border-radius: 15px;
+    border-width: 5px;
   }
 
   .toast p{
@@ -970,10 +973,11 @@
     position: relative;
     text-align: center;
     color: white;
+    padding: 15px;
     background-color: rgba(0, 0, 0, 0.842);
     padding: 10px;
-    font-size: 0.8rem;
-    border-radius: 20px;
+    font-size: 0.9rem;
+    border-radius: 8px;
   }
 
 

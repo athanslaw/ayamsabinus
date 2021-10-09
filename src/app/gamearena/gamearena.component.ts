@@ -642,7 +642,7 @@ export class GamearenaComponent implements OnInit {
       this.getPerkCount();
 
     } else {
-      this.toast_error("Ya giraffing no reach. Make you try buy");
+      this.toast("Ya giraffing no reach. Make you try buy");
       return;
     }
 
@@ -693,7 +693,7 @@ export class GamearenaComponent implements OnInit {
         this.getPerkCount();
 
       } else {
-        this.toast_error("Ya cowrie no reach. Make you try buy");
+        this.toast("Ya cowrie no reach. Make you try buy");
         return;
       }
 
@@ -776,7 +776,7 @@ export class GamearenaComponent implements OnInit {
   activateJara() {
 
     if (!this.canJara) {
-      this.toast_error("You must find jara word first");
+      this.toast("You must find jara word first");
       return;
     }
 
@@ -810,7 +810,7 @@ export class GamearenaComponent implements OnInit {
       this.jaraPercent = newPercent;
     }, 3000);
 
-    this.toast_success("Wehdone! You done collect Jara");
+    this.toast("Wehdone! You done collect Jara");
   }
 
 
@@ -854,7 +854,7 @@ export class GamearenaComponent implements OnInit {
         this.getPerkCount();
         this.sparkle();
       } else {
-        this.toast_error("Ya begi begi no reach. Make you try buy");
+        this.toast("Ya begi begi no reach. Make you try buy");
       }
       setTimeout(() => {
         this.closeBegibegi();
@@ -1139,7 +1139,7 @@ export class GamearenaComponent implements OnInit {
 
   reward() {
     this.animateCowries();
-    this.toast_success("Ya reward na 30 cowries");
+    this.toast("Ya reward na 30 cowries");
     this.soundService.playCowrieSound();
 
     this.storage.get('cowries').then((val) => {

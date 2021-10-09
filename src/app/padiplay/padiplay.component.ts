@@ -652,7 +652,7 @@ giraffe(){
     this.getPerkCount();
 
   }else{
-    this.toast_error("Ya giraffe no reach. Make you try buy");
+    this.toast("Ya giraffe no reach. Make you try buy");
     return;
   }
 
@@ -701,7 +701,7 @@ juju(){
         this.getPerkCount();
 
       }else{
-        this.toast_error("ya cowrie no reach. Make you try buy");
+        this.toast("ya cowrie no reach. Make you try buy");
         return;
       }
 
@@ -762,7 +762,7 @@ jaraNotUsed(word){
 activateJara(){
 
   if (!this.canJara ) {
-    this.toast_error("you must find jara word first");
+    this.toast("you must find jara word first");
     return;
   }
 
@@ -796,7 +796,7 @@ activateJara(){
     this.jaraPercent = newPercent;
   }, 3000);
 
-  this.toast_success("Wehdone! You done collect Jara");
+  this.toast("Wehdone! You done collect Jara");
 
 }
 
