@@ -1,0 +1,56 @@
+<div class="arena">
+  <img [src]="sticker" alt="" class="sticker">
+
+  <a href="" class="topLink leftLink">
+    <img src="../../assets/game/new/Menu button.png" class="menuBtn" alt="">
+  </a>
+
+  <a href="" class="topLink rightLink">
+    <img src="../../assets/landingpage/cowriebar.png" class="pointBar" alt="">
+  </a>
+
+  <a href="" class="midLink leftLink">
+    <img src="../../assets/game/new/Jara button.png" class="jara" alt="">
+  </a>
+
+  <a href="" class="midLink rightLink">
+    <img src="../../assets/game/new/Videobutton.png" class="tv" alt="">
+  </a>
+
+  <a href="" class="semiBottomLink leftLink">
+    <img src="../../assets/game/new/Juju button.png" class="juju" alt="">
+  </a>
+
+  <a (click)="giraffe()" class="semiBottomLink rightLink">
+    <img src="../../assets/game/new/Giraffing button.png" class="girrafe" alt="">
+  </a>
+
+  <a (click)="compactShuffle()" class="bottomLink leftLink">
+    <img src="../../assets/game/new/Shuffle button.png" class="shuffle" alt="">
+  </a>
+
+  <a href="" class="bottomLink rightLink">
+    <img src="../../assets/game/new/Begibegibutton.png" class="begibegi" alt="">
+  </a>
+
+  <div class="ayoTray animate__animated animate__repeat-1">
+    <!-- <div class="hole animate__repeat-1" [ngClass]="(giraffeI==i) ? 'animate__animated' : 'nada'"  [ngStyle]="{'background-image': i==0 || i==6  ? 'url(../../assets/game/new/left.png)' : i==lastLetterInt || i==5 ? 'url(../../assets/game/new/right.png)' : 'url(../../assets/game/new/middle.png)' }"   *ngFor="let w of compact;let i = index" ><span [ngStyle]="{'opacity': w.visible ? 1 : w.hint ? 0.3 : 0 }" >{{w.letter}}</span></div> -->
+    <div class="hole animate__repeat-1" [ngClass]="(giraffeI==i) ? 'animate__animated' : 'nada'"
+      [ngStyle]="{'background-image': i==6 && w.letter == ' '  ? 'url(../../assets/game/new/blank-left.png)' :  i==5 && w.letter == ' ' ? 'url(../../assets/game/new/blank-right.png)' : i==0 || i==6  ? 'url(../../assets/game/new/left.png)' : i==lastLetterInt || i==5 ? 'url(../../assets/game/new/right.png)' :  w.letter == ' ' ? 'url(../../assets/game/new/blank.png)' : 'url(../../assets/game/new/middle.png)' }"
+      *ngFor="let w of compact;let i = index"><span [ngStyle]="{'opacity': w.visible ? 1 : w.hint ? 0.8 : 0 }"><img
+          [src]="returnFont(w.letter)" class="ayofont" alt=""></span></div>
+  </div>
+
+  <div class="selectedTray animate__repeat-1 animate__animated">
+    <div class="tray" *ngIf="selectedLetters.length > 0">
+      <div (click)="cancelSubmitTray()" class="cancelsubmit"><i class="fas fa-times"></i></div>
+      <div class="submit" (click)="submitTray()"><i class="fas fa-check"></i></div>
+      <span *ngFor="let x of selectedLetters; let i = index">{{x.letter}}</span>
+    </div>
+  </div>
+
+  <div class="potLetters">
+    <div class="pl" *ngFor="let w of compactShuffled; let i = index" [ngStyle]="{'opacity': w.selected ? 0.2 : 1 }"
+      [style.transform]="getDegree(i)" (click)="selectLetter(w.idCode,w,i)"><b>{{w.letter}}</b></div>
+  </div>
+</div>

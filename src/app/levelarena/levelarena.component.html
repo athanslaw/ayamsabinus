@@ -1,0 +1,236 @@
+<div class="arena">
+
+  
+  <img [src]="sticker" alt="" class="sticker">
+
+  <div class="levelsticker">
+    <img src="../../assets/levelstickers/Close.png" alt="" class="levelstickerClose" (click)='nextRank()'>
+    <!-- <h3 class="levelstickerPoints">3000</h3> -->
+    <img class="levelstickerBase" src="../../assets/levelstickers/{{rank}}.png" alt="">
+    <img src="../../assets/levelstickers/Next.png" alt="" class="levelstickerButton next" (click)='nextRank()'>
+    <img src="../../assets/levelstickers/Watch.png" alt="" class="levelstickerButton watch">
+  </div>
+  <!-- <img [src]="levelsticker" alt="" class="levelsticker"> -->
+
+
+  <a (click)='toggleSettings()' class="topLink leftLink fadeIn fadeOne">
+    <img  src="../../assets/game/new/Menu button.png" class="menuBtn" alt="">
+  </a>
+
+
+  
+
+  <div class="scoreBox">
+    <div class="scoreHolder">
+      <h6 class="score">{{cowries}}</h6>
+    </div>
+  </div>
+
+
+  <a class="midLink leftLink fadeIn fadeOne" (click)='activateJara()'>
+    <img src="../../assets/game/new/Jara button.png" class="jara animate__animated animate__infinite" alt="">
+  </a>
+
+  <!-- <a class="midLink rightLink fadeIn fadeOne" (click)='dictionary()'>
+    <img src="../../assets/game/new/school.png" class="tv" alt="">
+  </a> -->
+
+
+
+
+
+  <a  (click)="juju()"  class="semiBottomLink leftLink fadeIn fadeOne">
+    <img src="../../assets/game/new/Juju button.png" class="juju" alt="">
+  </a>
+
+  <a (click)="giraffe()"  class="semiBottomLink rightLink fadeIn fadeOne">
+    <img src="../../assets/game/new/Giraffing button.png" class="girrafe" alt="">
+  </a>
+
+
+<a (click)="compactShuffle()"  class="bottomLink leftLink fadeIn fadeOne">
+  <img src="../../assets/game/new/Shuffle button.png" class="shuffle" alt="">
+</a>
+
+  
+
+
+<a class="bottomLink rightLink fadeIn fadeOne">
+  <img src="../../assets/game/new/Begibegibutton.png" class="begibegi" alt="">
+</a>
+
+
+
+
+<div class="inner">
+
+        <img src="../../assets/game/new/smalllogo.png" class="smalllogo" alt="">
+
+        <div class="ayoTray fadeIn fadeTwo">
+
+          <div class="wordRack animate__repeat-1" *ngFor="let w of multiArray; let i = index" [ngClass]="(rowToBounce==i) ? 'animate__animated' : 'nada'" >
+            
+            <!-- <div class="hole animate__repeat-1"   *ngFor="let l of w; let i = index"> -->
+              <!-- <img src="../../assets/game/new/left-flip.png" *ngIf="i==0" alt="" class="leftFlip"> -->
+              <!-- <img src="../../assets/game/new/right-flip.png" *ngIf="i==w.length-1" alt="" class="rightFlip"> -->
+              <!-- <span [ngStyle]="{'opacity': l.visible ? 1 : l.hint ? 0.7 : 0 }" >{{l.letter}}</span> -->
+            <!-- </div> -->
+
+
+
+            <div class="hole animate__repeat-1"  [ngStyle]="{'background-image': i==0 && w.length > 1 ? 'url(../../assets/game/new/left.png)' : i == w.length-1 && w.length > 1 ? 'url(../../assets/game/new/right.png)' : 'url(../../assets/game/new/middle.png)' }"   *ngFor="let l of w; let i = index">
+              <!-- <img src="../../assets/game/new/left-flip.png" *ngIf="i==0" alt="" class="leftFlip"> -->
+              <!-- <img src="../../assets/game/new/right-flip.png" *ngIf="i==w.length-1" alt="" class="rightFlip"> -->
+              <span [ngStyle]="{'opacity': l.visible ? 1 : l.hint ? 0.4 : 0 }" >{{l.letter}}</span>
+            </div>
+
+
+            
+          </div>
+
+        </div>
+
+
+
+
+        <div class="selectedTray animate__repeat-1 animate__animated">
+          <div class="tray" *ngIf="selectedLetters.length > 0" >
+            <div (click)="cancelSubmitTray()" class="cancelsubmit"><i class="fas fa-times"></i></div>
+            <div class="submit" (click)="submitTray()"><i class="fas fa-check"></i></div>
+            <span *ngFor="let x of selectedLetters; let i = index">{{x.letter}}</span>
+          </div>
+        </div>
+
+
+
+
+        <div class="table">
+          <div class="pot">
+            <div class="potLetters fadeIn fadeTwo">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble1" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble1" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble2" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble2" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble3" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble3" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble4" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble4" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble5" alt="">
+              <img src="../../assets/game/new/bubble.svg" class="bubble bubble5" alt="">
+              <div class="pl" *ngFor="let w of compactShuffled; let i = index"  [ngStyle]="{'opacity': w.selected ? 0.2 : 1 , 'animation-duration': [spin(i)]+'s'}"  [style.transform]="getDegree(i)"  (click)="selectLetter(w.idCode,w,i)"><b>{{w.letter}}</b></div>
+              <img src="../../assets/game/new/ladle.png" class="ladle animate__swingnope animate__animated animate__infinite animate__slower" alt="">
+            </div>
+          </div>
+        </div>
+
+
+</div>
+<!-- end of inner -->
+
+
+
+</div>
+
+<!-- end of arena -->
+
+
+
+
+<div class="nextPane">
+  <div class="nextBox">
+    <img src="../../assets/game/wehdone/School.png" class="nextSchool" (click)='dictionary()' alt="">
+    <img src="../../assets/game/wehdone/green.png" class="fist animate__heartBeat animate__animated animate__infinite" alt="">
+
+    <img src="../../assets/game/wehdone/Next.png" class="nextBubble" (click)="roundStatus()" alt="">
+    <img src="../../assets/game/wehdone/Watch.png" class="watchBubble" alt="">
+  </div>
+</div>
+
+
+
+
+
+
+<div class="settings">
+  <div class="settingsBox">
+
+    <img src="../../assets/settings/popup.png" alt="" class="settingsImage">
+
+    <div class="contentBox">
+
+        <img  (click)='toggleSettings()'  src="../../assets/settings/close.png" alt="" class="closeSettings">
+
+        <div class="bottonsRow">
+          <img (click)="toggleSound()" src="../../assets/settings/{{soundStat?'sound':'sound2'}}.png" class="button sound" alt="">
+          
+          <img (click)="toggleSfx()" src="../../assets/settings/{{sfxStat?'sfx':'sfx2'}}.png" class="button sfx" alt="">
+        </div>
+
+        <div class="woodBars">
+          <img style="left: 2.5%;" [routerLink]="['/level']" src="../../assets/settings/levels.png" alt="" class="wBar">
+          <img style="right: 2.5%;"  (click)='rate()' src="../../assets/settings/rateus.png" alt="" class="wBar">
+          <img style="left: 2.5%;"  src="../../assets/settings/konect.png" alt="" class="wBar">
+          <img style="right: 2.5%;"  src="../../assets/settings/contactus.png" alt="" class="wBar">
+          <img style="left: 2.5%;"  src="../../assets/settings/speshiatainks.png" alt="" class="wBar">
+        </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- //dictionary -->
+
+<div class="dictionary">
+  
+  <div class="dictionaryCase">
+    <img src="../../assets/game/new/close.png" alt="" class="close" (click)='closeDictionary()'>
+      <img src="../../assets/game/new/pane.png" alt="">
+      <div class="paneText">
+        <h2>{{currentWord.word}}</h2>
+        
+        <p>{{currentWord.meaning}}</p>
+      </div>
+  </div>
+
+</div>
+
+
+
+
+
+<!-- JARA Pane -->
+
+<div class="jaraPane">
+  <div class="jaraBox">
+    <img src="../../assets/game/new/close.png" alt="" (click)="closeJara()" class="jaraClose">
+    <img src="../../assets/game/jara/jarapop.png" class="jarabase" alt="">
+    <div class="jaraElems">
+      <div class="jaraBar">
+        <div class="jaraProg" [ngStyle]="{'width': jaraPercent }"></div>
+      </div>
+      <br>
+      <img *ngIf="jaraKomkom > jaraFull" class="takeam" (click)="takeAm()" src="../../assets/game/jara/takeam.png" alt="">
+    </div>
+    <img src="../../assets/game/jara/progresscowries.png" class="progressCowries" alt="">
+  </div>
+</div>
+
+
+
+
+<!-- toast -->
+<div class="toast">
+  <p>{{toastMessage}}</p>
+</div>

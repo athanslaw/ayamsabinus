@@ -1,0 +1,224 @@
+@font-face {
+  font-family: 'VagFont';
+  src: url('../../assets/fonts/VAGRON_1.TTF')  format('truetype'), /* Safari, Android, iOS */       
+}
+
+.arena{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-image: url(../../assets/game/new/Bkg1.png);
+    background-size: cover;
+    background-position: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    overflow: hidden;
+  }
+
+  .topLink{
+    position: absolute;
+    top: 3vh;
+    z-index: 100;
+  }
+
+  .midLink{
+    position: absolute;
+    top: 48vh;
+    z-index: 100;
+  }
+
+  .semiBottomLink{
+    position: absolute;
+    bottom: 17vh;
+    z-index: 100;
+  }
+
+  .bottomLink{
+    position: absolute;
+    bottom: 2vh;
+    z-index: 100;
+  }
+
+  .leftLink{
+    left: 4vw;
+  }
+
+
+  .rightLink{
+    right: 4vw;
+  }
+
+
+  .menuBtn{
+    height: 7vh;
+  }
+
+  .pointBar{
+    height: 5.5vh;
+  }
+
+  .jara{
+    height: 7vh;
+  }
+
+  .juju{
+    height: 8vh;
+    position: relative;
+    top: -1vh;
+  }
+
+  .girrafe{
+    height: 8vh;
+  }
+
+
+  .tv{
+    height: 7vh;
+  }
+
+  .shuffle{
+    height: 8vh;
+  }
+
+  .begibegi{
+    height: 8vh;
+  }
+
+
+  .potLetters{
+    position: absolute;
+    z-index: 2000;
+    width: 55%;
+    height: 28%;
+    left: 22.5%;
+    bottom: 15vh;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 3vh;
+    // background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: flex-start; /* Add this*/
+  }
+
+  .pl{
+    display: inline-block;
+    // color: white;
+    color: #ffd7a6;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: #6b4612;
+    text-align: center;
+    vertical-align: middle;
+    margin: 7px;
+    // margin-right: 10px;
+    text-align: center;
+    position: relative;
+    font-size: 2.4rem !important;
+    font-weight: 900;
+    font-family: 'VagFont', Fallback, sans-serif;
+  }
+  
+  .ayoTray{
+    position: absolute;
+    z-index: 3000;
+    width: 80%;
+    height: 28%;
+    left: 10%;
+    top: 20vh;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start; /* Add this*/
+  }
+
+  .hole{
+    color: white;
+    width: 11vw;
+    height: 11vw;
+    margin-bottom: 10px;
+    background-image: url(../../assets/game/new/AyosideB.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+  }
+
+  .selectedTray{
+    position: absolute;
+    top: 50vh;
+    left: 15vw;
+    z-index: 300;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tray{
+    position: relative;
+    // right: 5vw;
+    background-color: rgba(0, 0, 0, 0.742);
+    color: white;
+    text-align: center;
+    padding: 6px 15px;
+    width: auto;
+    height: 10vw;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    border-radius: 0px 0px 0px 0px;
+  }
+
+  .submit{
+    width: 10vw;
+    height: 10vw;
+    background-color: yellowgreen;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 20px 20px 0px;
+    position: absolute;
+    right: -10vw;
+    font-size: 0.9rem;
+  }
+
+  .cancelsubmit{
+    width: 10vw;
+    height: 10vw;
+    background-color: rgb(221, 8, 79);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px 0px 0px 20px;
+    position: absolute;
+    left: -10vw;
+    font-size: 0.9rem;
+  }
+
+  .sticker{
+    position: absolute;
+    z-index: 11000;
+    width: 0vw;
+    left: 50vw;
+    bottom: 20vh;
+  }
+
+  .potfont{
+    height: 5vh;
+    width: auto;
+  }
+
+  .ayofont{
+    height: 3vh;
+    width: auto;
+  }

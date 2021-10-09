@@ -1,0 +1,255 @@
+.hero{
+    font-family: 'VagFont', Fallback, sans-serif;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../../assets/helep/bg-wood.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.back{
+  position: absolute;
+  right: 5vw;
+  top: 5vw;
+  height: 6vh;
+  width: auto;
+  z-index: 10000;
+}
+
+
+
+// .back{
+//     position: absolute;
+//     z-index: 50;
+//     top: 3vw;
+//     right: 3vw;
+// }
+
+.back img{
+    width: 12vw;
+    height: auto;
+}
+
+
+.contentBox{
+    position: relative;
+    left: 10vw;
+    width: 80vw;
+    height: 133vw;
+    // background-color: red;
+}
+
+.baseImg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+
+.buttonBox {
+    position: absolute;
+    z-index: 20;
+    // background-color: green;
+    width: 90%;
+    height: 30%;
+    left: 5%;
+    top: 38%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.helpBtn{
+    width: 70%;
+    height: auto;
+    mix-blend-mode: screen;
+}
+
+
+
+// ................................
+
+
+
+
+
+.howToPane,.padiplayPane{
+    font-family: 'VagFont', Fallback, sans-serif;
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+
+  .howToPaneBox{
+    position: absolute;
+    top: 0;
+    left: 10vw;
+    width: 80vw;
+    height: 125vw;
+  }
+
+  .mt{
+    margin-top: 30px;
+  }
+  .padiwidth {
+    width: 80%;
+    margin: 8vw 10vw;
+  }
+  .howToClose2 {
+    right: -5%;
+    height: 10%;
+    width: auto;
+    position: absolute;
+    z-index: 8005;
+  }
+
+  .helper{
+    position: absolute;
+    width: 25%;
+    bottom: 56%;
+    left: -2%;
+    transform: rotate(20deg);
+    animation-name: helperSway;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    z-index: 1000;
+  }
+
+  @keyframes helperSway {
+    0%   {transform: rotate(20deg);}
+    50%  {transform: rotate(-20deg);}
+    100% {transform: rotate(20deg);}
+  }
+
+  .howToContentBox{
+    // z-index: 8002;
+    z-index: 800;
+    position: absolute;
+    bottom: 5vw;
+    left: 10%;
+    width: 80%;
+    height: 60%;
+    padding: 10px;
+    text-align: center !important;
+    font-family: "VagFont", Fallback, sans-serif !important;
+  }
+
+  .howToImage{
+    position: relative;
+    height: 65%;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .howToText{
+    font-family: 'VagFont', Fallback, sans-serif;
+    text-align: center;
+    margin: 0;
+    font-size: 0.8rem;
+    color: #673d13;
+  }
+
+  .howToProg{
+    height: 12%;
+    width: auto;
+    position: absolute;
+    z-index: 8004;
+    bottom: -5%;
+  }
+
+  .howToProg2{
+    height: 12%;
+    width: auto;
+    position: absolute;
+    z-index: 8004;
+    bottom: -1%;
+  }
+
+  .endText {
+    font-family: 'VagFont', Fallback, sans-serif;
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 28vw;
+    margin-left: 4vw;
+    width: auto;
+  }
+
+  .htp1{
+    left: -5%;
+  }
+
+  .htp2{
+    right: -5%;
+  }
+
+  .htp3{
+    left: -1%;
+  }
+
+
+  .howToClose{
+    right: -7%;
+    top: -6%;
+    height: 10%;
+    width: auto;
+    position: absolute;
+    z-index: 8005;
+  }
+
+
+
+  .jaraPane{
+    position: absolute;
+    z-index: 2500;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+
+  .jaraPaneBox{
+    position: absolute;
+    top: 0;
+    left: 10vw;
+    width: 80vw;
+    // height: 125vw;
+    // background-color: green;
+  }
+
+  // .jaraBase{
+  //     position: absolute;
+  //     top: 0;
+  //     left: 0;
+  //     // width: 100%;
+  // }
+
+  .jaraClose{
+    // right: 2%;
+    right: 5%;
+    top: 32%;
+    height: 7%;
+    width: auto;
+    position: absolute;
+    z-index: 3005;
+  }

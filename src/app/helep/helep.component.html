@@ -1,0 +1,113 @@
+<div class="hero">
+
+  <!-- <a [routerLink]="['/landing']" class="back"> -->
+    <img (click)="back()" src="../../assets/helep/back.png" class="back" alt="">
+  <!-- </a> -->
+
+  <div class="contentBox">
+    <div class="buttonBox">
+      <img src="../../assets/helep/PLikeDisbutton.png" alt="" class="helpBtn" (click)="showPlayLikeDis()">
+      <img src="../../assets/helep/JWordsbutton.png" alt="" class="helpBtn" (click)="showJara()">
+      <img src="../../assets/helep/Pplaybutton.png" alt="" class="helpBtn" (click)="showPadi()">
+    </div>
+    <img src="../../assets/helep/Helppopup.png" alt="" class="baseImg">
+  </div>
+
+</div>
+
+
+
+<!-- //play like dis -->
+<!-- <div class="howToPane">
+  <div class="howToPaneBox">
+    <img src="../../assets/landingpage/howtoplay/base.png" alt="" class="howToBase">
+    <div class="howToContentBox">
+      <img [src]="howToImage" alt="" class="howToImage">
+      <br>
+      <p class="howToText">{{howToText}}</p>
+      <img *ngIf="howToPane > 1" src="../../assets/landingpage/howtoplay/prev.png" alt="" class="howToProg htp1" (click)="howToPrev()">
+      <img *ngIf="howToPane != 2" src="../../assets/landingpage/howtoplay/next.png" alt="" class="howToProg htp2" (click)="howToNext()">
+      <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="howToClose" (click)="howToClose()">
+    </div>
+    <img [src]="howToXter" alt="" class="helper">
+  </div>
+</div> -->
+
+
+<div class="howToPane">
+  <div class="howToPaneBox">
+    <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="jaraClose" (click)="howToClose()">
+    
+    <img src="../../assets/landingpage/howtoplay/base.png" alt="" class="howToBase">
+    <div class="howToContentBox">
+      <img [src]="howToImage" height="160" alt="" class="howToBase">
+      <br>
+      <p class="howToText" style="text-align: center; font-family: 'VagFont', Fallback, sans-serif !important;">{{howToText1}}</p>
+      <p class="howToText" style="text-align: center; font-family: 'VagFont', Fallback, sans-serif !important;">{{howToText}}</p>
+      <img [src]="padiPrevImg" alt="" class="howToProg2 htp3" (click)="playlikePrev()">
+      <img [src]="padiNextImg" alt="" class="howToProg2 htp2" (click)="playlikeNext()">
+    </div>
+    <img [src]="howToXter" alt="" class="helper">
+  </div>
+</div>
+
+<!-- <div class="jaraPane">
+  <div class="jaraPaneBox">
+    <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="jaraClose" (click)="jaraClose()">
+    <img src="../../assets/helep/jarawords/popup.png" alt="" class="jaraBase">
+  </div>
+</div> -->
+
+<div class="jaraPane">
+  <div class="jaraPaneBox">
+    <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="jaraClose" (click)="jaraClose()">
+    <img [src]="jaraImage" alt="" class="jaraBase">
+      <br>
+      <img [src]="padiPrevImg" alt="" class="howToProg2 htp3" (click)="jaraPrev()">
+      <img [src]="padiNextImg" alt="" class="howToProg2 htp2" (click)="jaraNext()">
+    <img [src]="howToXter" alt="" class="helper">
+  </div>
+</div>
+
+<!-- <div class="jaraPane">
+  <div class="jaraPaneBox">
+    <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="jaraClose" (click)="jaraClose()">
+    <img ngIf="jaraPaneLay == 1" src="../../assets/helep/jarawords/popup.png" alt="" class="jaraBase">
+    <img ngIf="jaraPaneLay == 2" src="../../assets/helep/jarawords/popup2.png" alt="" class="jaraBase">
+      <br>
+      <img ngIf="jaraPaneLay == 2" [src]="padiPrevImg" alt="" class="howToProg2 htp3" (click)="jaraPrev()">
+      <img ngIf="jaraPaneLay == 1" [src]="padiNextImg" alt="" class="howToProg2 htp2" (click)="jaraNext()">
+    <img [src]="howToXter" alt="" class="helper">
+  </div>
+</div> -->
+
+<!-- <div class="jaraPane">
+  <div class="jaraPaneBox" *ngIf="jaraPaneLay == 1">
+    <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="jaraClose" (click)="jaraClose()">
+    <img src="../../assets/helep/jarawords/popup.png" alt="" class="jaraBase">
+      <br>
+      <img [src]="padiNextImg" alt="" class="howToProg2 htp2" (click)="jaraNext()">
+    <img [src]="howToXter" alt="" class="helper">
+  </div>
+  <div class="jaraPaneBox" *ngIf="jaraPaneLay == 2">
+    <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="jaraClose" (click)="jaraClose()">
+    <img src="../../assets/helep/jarawords/popup2.png" alt="" class="jaraBase">
+      <br>
+      <img [src]="padiPrevImg" alt="" class="howToProg2 htp3" (click)="jaraPrev()">
+    <img [src]="howToXter" alt="" class="helper">
+  </div>
+</div> -->
+
+
+
+<div class="padiplayPane">
+  <div class="howToPaneBox mt">
+    <img [src]="padiImage2" alt="" class="howToBase padiwidth">
+    <div class="howToContentBox">
+      <br>
+      <p class="howToText endText"  style="text-align: center; font-family: 'VagFont', Fallback, sans-serif !important;">{{padiText}}</p>
+      <img [src]="padiPrevImg" alt="" class="howToProg2 htp3" (click)="padiPrev()">
+      <img [src]="padiNextImg" alt="" class="howToProg2 htp2" (click)="padiNext()">
+    </div>
+  </div>
+</div>

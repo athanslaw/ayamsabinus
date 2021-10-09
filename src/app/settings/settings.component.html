@@ -1,0 +1,51 @@
+<div class="arena">
+
+
+  <!--<img (click)="back()" src="../../assets/game/new/previous.png" class="back" alt=""> -->
+
+  <div class="settings">
+    <div class="settingsBox">
+
+      <img src="../../assets/settings/popup.png" alt="" class="settingsImage">
+
+      <div class="contentBox">
+
+          <img (click)="back()" src="../../assets/settings/close.png" alt="" class="closeSettings">
+
+          <div class="bottonsRow">
+            <img (click)="toggleSound()" src="../../assets/settings/{{soundStat?'sound':'sound2'}}.png" class="button sound" alt="">
+
+            <img (click)="toggleSfx()" src="../../assets/settings/{{sfxStat?'sfx':'sfx2'}}.png" class="button sfx" alt="">
+          </div>
+
+          <div class="woodBars">
+            <!-- <img [routerLink]="['/level']" src="../../assets/settings/levels.png" alt="" class="wBar">
+            <img (click)='rate()' src="../../assets/settings/rate.png" alt="" class="wBar">
+            <img src="../../assets/settings/connect.png" alt="" class="wBar">
+            <img src="../../assets/settings/contact.png" alt="" class="wBar"> -->
+
+              <!--<img (click)="back()" style="right: 2.5%;" src="../../assets/settings/mainmenu.png" alt="" class="wBar">-->
+            <a (click)="level()">
+              <img style="left: 2.5%;" src="../../assets/settings/levels.png" alt="" class="wBar">
+            </a>
+            <a (click)='helep()'>
+              <img style="right: 2.5%;"  src="../../assets/settings/helep.png" alt="" class="wBar">
+            </a>
+            <img style="left: 2.5%;"  (click)='rate()' src="../../assets/settings/rateus.png" alt="" class="wBar">
+            <img style="right: 2.5%;"  src="../../assets/settings/konect.png" alt="" class="wBar">
+            <a href="mailto: nativetinkglobal@gmail.com">
+              <img style="left: 2.5%;"  src="../../assets/settings/contactus.png" alt="" class="wBar">
+            </a>
+            <a href="/credits">
+              <img style="right: 2.5%;"  src="../../assets/settings/speshiatainks.png" alt="" class="wBar">
+            </a>
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>

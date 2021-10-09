@@ -1,0 +1,106 @@
+.arena{
+    min-height: 100vh;
+    width: 100vw;
+    position: relative;
+    background-image: url(../../assets/awoof/bg-dark.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+.settings{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    // background-color: rgba(0, 0, 0, 0.741);
+    z-index: 3000;
+    // display: none;
+  }
+
+  .settingsBox{
+    height: 75vh;
+    width: 80vw;
+    position: absolute;
+    top: 0;
+    left: 10vw;
+    // background-color: red;
+
+  }
+
+  .settingsImage{
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .contentBox{
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    z-index: 3500;
+    height: 47vh;
+    width: 90%;
+    left: 5%;
+    // background-color: rgba(255, 166, 0, 0.9);
+    top: 25vh;
+  }
+
+  .bottonsRow{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: blue;
+    top: 10%;
+    height: 20%;
+    width: 100%;
+  }
+
+  .button{
+    height: 100%;
+    margin: 10px;
+  }
+
+  .woodBars{
+    // background-color: green;
+    width: 80%;
+    left: 10%;
+    position: relative;
+    top: 18%;
+  }
+
+  .wBar{
+    position: relative;
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+
+
+  .closeSettings{
+    height: 10%;
+    width: auto;
+    position: absolute;
+    top: -5%;
+    right: 0%;
+  }
+
+
+  .back{
+    position: absolute;
+    right: 5vw;
+    top: 5vw;
+    height: 6vh;
+    width: auto;
+    z-index: 10000;
+  }
+

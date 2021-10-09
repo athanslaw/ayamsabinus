@@ -1,0 +1,712 @@
+<ion-content>
+
+
+<div class="topButtons">
+  <div class="prev" (click)="back()">
+    <img src="../../assets/level/previous.png" alt="">
+  </div>
+  <div class="cowrieBar">
+    <p>{{cowries}}</p>
+    <img src="../../assets/level/cowriebar.png" alt="">
+  </div>
+</div>
+
+
+<div class="arena">
+
+            <div class="board">
+
+
+                  <div class="boardContent">
+
+
+                          <img src="../../assets/level/chain.png" class="chain" alt="">
+
+
+                          <div class="ranks">
+
+                            <div class="rank" *ngFor="let r of ranks; let i = index" (click)='toggleRank(i)'  [ngStyle]="{'opacity': i > rank ? 0.3 : 1}">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img [src]="rankImg(r.RankPos)" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <div class="levels" *ngIf="i <= rank" >
+                                <div ClickStopPropagation class="level" [hidden]="showRankLevels(i)"  (click)='toggleLevel(x)'  *ngFor="let l of r.levels; let x = index">
+                                  <div class="levelBoard">
+                                    <img [src]="toggleBtn(i,x)" alt="" class="expand">
+                                    <div class="levelText"><p>Level {{l.LEVEL}}</p></div>
+                                    <img src="../../assets/level/levelboard.png" alt="" class="levelWood">
+                                  </div>
+
+                                  <div class="words" [hidden]="!showLevelWords(i,x)">
+                                    <!-- <div class="word" *ngFor="let w of l.WORDS; let z = index"> {{ w.word }}</div> -->
+                                    <div class="word" *ngFor="let w of l.WORDS; let z = index" (click)='playWord(i,x,z)'>
+                                      <div [hidden]='locked(i,x,z)' class="wordNumber"><p>{{z+1}}</p></div>
+                                      <img [src]="hasBeenPlayed(i,x,z)" class="wordBox" alt="">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- <img [src]="showChain(i)" alt="" class="endChain"> -->
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+                            </div>
+
+
+
+                            <!-- //hardcoded dummy ranks -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img [src]="rankImg(5)" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img [src]="rankImg(6)" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img [src]="rankImg(7)" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img [src]="rankImg(8)" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img [src]="rankImg(9)" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img [src]="rankImg(10)" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 11 - Beta Playa.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 12 - Correkt Playa.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 13 - Confam Playa.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 14 - Senior Playa.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 15 - You Too Much.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 16 - Pepper Dem Geng.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 17 - Ova Sabi.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 18 - Oga.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 19 - Beta Oga.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 20 - Correkt Oga.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 21 - Confam Oga.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 22 - Senior Oga.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 23 - Oga Boss.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 24 - Gbosa Master.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 25 - Boss.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 26 - Beta Boss.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 27 - Correkt Boss.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 28 - Confam Boss.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 29 - Senior Boss.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 30 - Controla.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 31 - Beta Controla.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 32 - Confam Controla.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 33 - Senior Controla.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 34 - Baddo.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 35 - Confam Baddo.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 36 - Senior Baddo.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 37 - Baddest.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 38 - Baddest By Far.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 39 - Geng Master.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 40 - Honorable.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 41 - Correkt Honorable.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 42 - Confam Honorable.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 43 - Senior Honorable.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 44 - Presido.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 45 - Correkt Presido.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 46 - Confam Presido.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 47 - Senior Presido.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 48 - Chairman.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <img src="../../assets/level/endchain.png" alt="" class="endChain">
+
+                            </div>
+
+
+
+                            <!--  -->
+
+                            <div class="rank" style="opacity: 0.3;">
+
+                              <div class="rankBoard">
+                                <div class="rankTitle"> <img src="../../assets/level/boards-dummy/Board 49 - Jagaban.png" alt=""> </div>
+                                <img src="../../assets/level/board.png" alt="" class="rankWood">
+                              </div>
+
+                              <!-- <img src="../../assets/level/endchain.png" alt="" class="endChain"> -->
+
+                            </div>
+
+                            <br><br><br>
+
+                          </div>
+
+
+                  </div>
+                  <!-- end of boardContent -->
+
+
+            </div>
+            <!-- end of board -->
+
+
+
+</div>
+
+</ion-content>

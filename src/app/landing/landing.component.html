@@ -1,0 +1,412 @@
+
+
+<ion-content [fullscreen]="true">
+
+
+
+  <div class="loader">
+      <div>
+        <img src="../../assets/landingpage/loader/loadimg.png" alt="" class="loaderImg animate__animated animate__infinite animate__pulse">
+        <div class="loadBar">
+          <div class="prog"></div>
+        </div>
+      </div>
+  </div>
+
+
+<div class="anotherMain" *ngIf='isLoaded && isLoaded > 0'>
+  <div class="main">
+
+
+
+    <!-- toplinks -->
+    <a (click)="showProfile()"><img [src]="users.picture.data.url" alt="" class="profilelink"></a>
+    <!-- <a href="#"><img src="../../assets/landingpage/album2.png" alt="" class="album"></a> -->
+
+
+    <!-- <div class="cowryBox">
+      <h6 class="cowries">{{cowries}}</h6>
+      <img src="../../assets/landingpage/cowriebar.png" alt="" class="cowriebar">
+    </div> -->
+
+    <div class="scoreBox" (click)="awoof()">
+      <div class="scoreHolder">
+        <h6 class="score">{{cowries}}</h6>
+      </div>
+    </div>
+
+
+    <!-- top2 links -->
+    <!-- <a href="#"><img src="../../assets/landingpage/dailyawoof2.png" alt="" class="dailyawoof"></a> -->
+    <a><img src="../../assets/landingpage/speshia.png" alt="" class="dailyawoof"></a>
+    <a  [routerLink]="['/awoof']"><img src="../../assets/landingpage/awoofpacks2.png" alt="" class="awoofpacks"></a>
+
+    <div class="mainCenter">
+      <img src="../../assets/landingpage/title22.png" alt="" class="title">
+      <img src="../../assets/landingpage/centerpiece.png" alt="" class="centerpiece">
+      <a [routerLink]="['/gamearena']"><img src="../../assets/landingpage/playbtn2.png" class="playbtn" alt=""></a>
+    </div>
+
+
+
+    <div *ngIf='notificationslength > 0' (click)="showNotifications()" class="notificationIcon">
+      <div class="nBubble">{{notifications.length}}</div>
+      <div *ngIf='minDeadline' class="deadline animate__animated animate__shakeX animate__infinite animate__slow">{{minDeadline}} hrs left</div>
+    </div>
+
+
+
+    <div class="padiplayResult">
+      <img (click)="closeResult()" src="../../assets/landingpage/padi/close.png" class="notificationClose" alt="">
+      <img src="../../assets/landingpage/{{padiplayResult}}.png" class="resultImage animate__animated animate__infinite" alt="">
+    </div>
+    <!--  -->
+
+
+    <!-- bottom links -->
+    <!-- <a (click)="resetAwoof()" ><img src="../../assets/landingpage/video.png" alt="" class="tv"></a> -->
+    <a (click)="triggerVideo()" ><img src="../../assets/landingpage/video.png" alt="" class="tv"></a>
+
+    <img [routerLink]="['/settings']" src="../../assets/landingpage/settings2.png" alt="" class="settingsMain">
+
+    <a (click)="introducePadiplay()"><img src="../../assets/landingpage/padiplay2.png" alt="" class="padiplay"></a>
+
+  </div>
+</div>
+  <div class="tokenBubble countBubble">{{this.tokens}}</div>
+
+  <div *ngIf='loginMsg && loginMsg.length > 1' class="fbPane">
+    <div class="fbBox">
+      <div class="fbContent">
+        <img src="../../assets/landingpage/padi/close.png" class="closeFB"  (click)="closeFbPane()" alt="">
+        <div>
+          <img src="../../assets/landingpage/fb/coverpot.png" alt="" class="coverpot">
+          <p>{{loginMsg}}</p>
+          <img class="fbBtn" src="../../assets/landingpage/facebook.png" (click)='fbLogin()' alt="">
+          <img class="gglBtn" src="../../assets/landingpage/google.png" (click)='loginGoogle()' alt="">
+        </div>
+      </div>
+      <img src="../../assets/landingpage/blankpane2.png" alt="" class="blankPane">
+    </div>
+  </div>
+
+  <div *ngIf="showNetworkVal && showNetworkVal > 0" class="networkPane">
+    <div class="padiBox">
+      <div class="padiContent">
+        <img src="../../assets/padiplay/network.png" class="timeup" alt="">
+    </div>
+    </div>
+  </div>
+
+  <div class="padiPane">
+
+    <div class="padiBox">
+      <img #paneImg src="../../assets/landingpage/padi/blank.png" class="backImg" alt="">
+      <div class="padiContent">
+        <img (click)="closePadiPlay()" src="../../assets/landingpage/padi/close.png" class="padiClose" alt="">
+        <img class="padiHero" src="../../assets/landingpage/padi/hero.png" alt="">
+        <img src="../../assets/landingpage/padi/progressbar.png" alt="" class="prog">
+        <p class="padiText">
+          Play 5 games wit ya padi. Beat ya padi time make you win beta.
+        </p>
+        <img src="../../assets/landingpage/padi/play.png" alt="" class="padiPlay" (click)="introducePadiplay2Prod()">
+      </div>
+    </div>
+
+    <div *ngIf="error.status" class="errorToast">
+      {{error.msg}}
+    </div>
+
+  </div>
+
+
+
+  <div class="padiPaneTwo">
+
+    <div class="startPane">
+      <img src="../../assets/padiplay/prepadiplay.png" class="startPadiplay start1" (click)="preStartGame()" alt="">
+      <img src="../../assets/padiplay/startpadipplay.png" class="startPadiplay start2" (click)="startGame()" alt="">
+    </div>
+
+    <img (click)="closePadiPlay2()" src="../../assets/landingpage/padi/close.png" class="padiClose2" alt="">
+
+    <div class="padiMain">
+      <!-- introText -->
+
+    <p style="text-align: center; color: white;"><small>Your Sabinus ID is:</small></p>
+    <p class="introText">{{sabinusId}}</p>
+    <p class="introText opponent">{{generateFirstName(opponent.name)}}</p>
+
+    <!-- xterBox -->
+
+    <div class="xterBox">
+
+      <div class="xter">
+        <p *ngIf="challengerSelected">{{generateInitials(challenger.name)}}</p>
+        <img class="avatar" src="../../assets/landingpage/padi/green-avatar.png" alt="">
+      </div>
+
+      <div class="vsBox">
+        <p>vs</p>
+      </div>
+
+      <div class="xter" (click)="selectOpponent()">
+        <p *ngIf="opponentSelected">{{generateInitials(opponent.name)}}</p>
+        <p *ngIf="!opponentSelected">+</p>
+        <img [ngStyle]="{'opacity': opponentSelected ? 1 : 0.2 }" class="avatar" src="../../assets/landingpage/padi/orange-avatar.png" alt="">
+      </div>
+
+    </div>
+
+
+    <p class="padihelp" *ngIf="!opponentSelected"><small>Click the '+' above to add your opponent</small></p>
+
+    <!-- statBox -->
+
+    <div class="statBox">
+      <div class="statBar">
+        <div class="statLong sl1"> {{challenger.gamesplayed}} </div>
+        <div class="statCenter">GAMES <br> PLAYED</div>
+        <div class="statLong sl2"> {{opponent.gamesplayed}} </div>
+      </div>
+      <!--  -->
+      <div class="statBar">
+        <div class="statLong sl1"> {{challenger.gameswon}} </div>
+        <div class="statCenter">GAMES <br> WON</div>
+        <div class="statLong sl2"> {{opponent.gameswon}} </div>
+      </div>
+    </div>
+
+    <br>
+
+    <img src="../../assets/landingpage/padi/play.png" class="play2" (click)="playGame()" alt=""   [ngStyle]="{'opacity': this.opponentSelected ? '1' : '0' }">
+
+    </div>
+    <!-- end of padimain -->
+
+
+    <div class="sabinusCodePane">
+      <h3>Enter Your Opponents Sabinus ID</h3>
+      <br>
+      <input type="text" [(ngModel)]="padirequest.opponentId" name="sabinusid"  required>
+<!--   Autocomplete   <input type="text" [(ngModel)]="padirequest.opponentId" name="sabinusid"  required>-->
+      <br>
+      <img src="../../assets/landingpage/padi/continue.png" class="continue" (click)="fetchOpponent(padirequest.opponentId)" alt="">
+    </div>
+
+
+    <div *ngIf="error.status" class="errorToast">
+      {{error.msg}}
+    </div>
+
+  </div>
+  <!-- end of padipanetwo -->
+
+  <div class="notificationsPane">
+
+    <img (click)="closeNotificationsPane()" src="../../assets/landingpage/padi/close.png" class="notificationClose" alt="">
+
+    <div class="notificationList">
+      <div *ngFor="let n of notifications; let i = index" (click)="clickNotification(n.notificationtype,n.senderid,n.recepientid, n.gameid, n.id)"  class="notif">
+        {{n.sendername}} {{n.notificationtype == "challenge" ? "don invite you to padiplay" : "don finish your padiplay game, view result" }}
+        <div *ngIf='analyseDeadline(n.reg_date)' class="deadlineInside animate__animated animate__shakeX animate__infinite animate__slow">{{minDeadline}} hrs left</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- {"id":1,"gameid":"ece50er","sendername":"nnenna awa","senderid":"aa048tm","recepientid":"eb2bbjp","notificationtype":"challenge","readstatus":"unread","reg_date":"2020-10-23 09:48:03"} -->
+
+<div class="welcomeGiftPane" *ngIf='currentPopup == 3'>
+  <img src="../../assets/landingpage/welcomepack.png" alt="" class="welcomePack" (click)="welcomePack()">
+</div>
+
+  <div class="tumbumPane" *ngIf='currentPopup === 2'>
+
+    <div class="tumbumContent">
+      <img src="../../assets/landingpage/padi/close.png" alt="" class="tumbumClose" (click)="closeTumbum()">
+      <img src="../../assets/landingpage/tumbum-wood2.png" alt="" class="tumbumWood">
+
+      <div class="gridBox">
+          <div class="gb">
+            <div class="gbFill gbf1" [ngStyle]="{'opacity': awoofNumber==1 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[0]}}</p>
+            <img src="../../assets/landingpage/tumbums/GreenCowries.png" alt="" class="gbBase">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf2" [ngStyle]="{'opacity': awoofNumber==2 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[1]}}</p>
+            <img src="../../assets/landingpage/tumbums/YellowCowries.png" alt="" class="gbBase">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf3" [ngStyle]="{'opacity': awoofNumber==3 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[2]}}</p>
+            <!-- <img src="../../assets/landingpage/tumbums/BlueGiraffe.png" alt="" class="gbBase"> -->
+            <img src="../../assets/landingpage/tumbums/GreenCowries.png" alt="" class="gbBase">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf4" [ngStyle]="{'opacity': awoofNumber==4 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[3]}}</p>
+            <!-- <p class="gbn">1</p> -->
+            <!-- <img src="../../assets/landingpage/tumbums/RedCowries.png" alt="" class="gbBase"> -->
+            <img width="80%" src="../../assets/landingpage/tumbums/totem.png" alt="" class="gbBase gbTotem">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf5" [ngStyle]="{'opacity': awoofNumber==5 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[4]}}</p>
+            <img src="../../assets/landingpage/tumbums/GreenGiraffe.png" alt="" class="gbBase">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf6" [ngStyle]="{'opacity': awoofNumber==6 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[5]}}</p>
+            <!-- <img src="../../assets/landingpage/tumbums/YellowBegiBegi.png" alt="" class="gbBase"> -->
+            <img src="../../assets/landingpage/tumbums/YellowCowries.png" alt="" class="gbBase">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf7" [ngStyle]="{'opacity': awoofNumber==7 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[6]}}</p>
+            <img src="../../assets/landingpage/tumbums/BlueBegiBegi.png" alt="" class="gbBase">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf8" [ngStyle]="{'opacity': awoofNumber==8 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[7]}}</p>
+            <img src="../../assets/landingpage/tumbums/RedJuju.png" alt="" class="gbBase">
+          </div>
+          <div class="gb">
+            <div class="gbFill gbf9" [ngStyle]="{'opacity': awoofNumber==9 ? 1 : 0 }"></div>
+            <p class="gbn">{{awoofNumbers[8]}}</p>
+            <!-- <img src="../../assets/landingpage/tumbums/GreenJuju.png" alt="" class="gbBase"> -->
+            <img src="../../assets/landingpage/tumbums/GreenCowries.png" alt="" class="gbBase">
+          </div>
+      </div>
+
+      <br>
+
+      <img src="../../assets/landingpage/tumbums/stop.png" (click)="selectAwoof()" class="stop"  alt="">
+
+      <div class="awoofResult">
+
+        <div class="awoofResultBox">
+          <img class="smile" src="../../assets/landingpage/tumbums/results/{{tumbumResultImage}}.png" alt="">
+          <h3>You earned {{perkNumber}} {{perk}}</h3>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- profile pane -->
+
+  <!-- <div class="profilePane">
+    <div class="profileBox">
+      <img src="../../assets/landingpage/profile/profilebase.png" alt="" class="profileBase">
+      <div class="profileContent">
+        <img src="../../assets/padiplay/close.png" alt="" (click)="closeProfile()" class="profileBack">
+        <div>
+          <div class="profileCowries"><span style="color: #ffc400;">cowries:</span> <b>{{cowries}}</b></div>
+          <div class="profileCowries"><span style="color: #ffc400;">juju:</span> <b>{{juju}}</b></div>
+          <div class="profileCowries"><span style="color: #ffc400;">giraffes:</span> <b>{{giraffes}}</b></div>
+          <div class="profileCowries"><span style="color: #ffc400;">begibegi:</span> <b>{{begibegi}}</b></div>
+          <br>
+          <a *ngIf='isLoggedIn'><img src="../../assets/landingpage/profile/backup.png" (click)="backupProfile()" class="wood" alt=""></a>
+          <a *ngIf='isLoggedIn'><img src="../../assets/landingpage/profile/logout.png" (click)="logoutProfile()" class="wood" alt=""></a>
+          <a *ngIf='!isLoggedIn'><img src="../../assets/landingpage/profile/login.png" (click)="loginProfile()" class="wood" alt=""></a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="profilePane">
+    <div class="profileBox">
+      <img src="../../assets/landingpage/profile/profilepop.png" alt="" class="profileBase">
+      <div class="profileContent">
+        <img src="../../assets/padiplay/close.png" alt="" (click)="closeProfile()" class="profileBack">
+
+        <div>
+          <!-- RANK -->
+          <div style="width: 100%; float: left; position: absolute; top: 4vw; left: 0vw; text-align: center !important;">
+            <div style="text-align: center; font-weight: bold; font-family: 'VagFont', Fallback, sans-serif !important;">
+                {{ rankDef }}
+              </div>
+            <div style="text-align: center; font-weight: bold; font-family: 'VagFont', Fallback, sans-serif !important;">
+              {{ cowries }}
+            </div>
+          </div>
+          <!-- Row 1 -->
+          <div style="width: 100%; float: left; position: absolute; top: 24vw; left: 13vw; color: #fff; font-size: 10px;">
+              <div style="float: left; width: 50%"> &nbsp; {{gamesplayed}} </div> <!--games played-->
+              <div style="float: left;width: 42%; margin-left: 15px;"> {{gameswon}} </div> <!--games won-->
+          </div>
+          <!-- Row 2 -->
+          <div style="width: 100%; float: left; position: absolute; top: 43vw; left: 13vw; color: #fff; font-size: 10px;">
+            <div style="float: left; width: 50%"> {{highestscore}} </div> <!--highest score-->
+            <div style="float: left;width: 42%; margin-left: 15px;"> {{averagescore}} </div> <!--average score-->
+        </div>
+          <!-- Row 3 -->
+          <div style="width: 100%; float: left; position: absolute; top: 63vw; left: 13vw; color: #fff; font-size: 10px;">
+            <div style="float: left; width: 50%"> {{ longestwinstreak }} </div> <!--longest streak-->
+            <div style="float: left;width: 42%; margin-left: 15px;"> {{ winstreak }} </div> <!--current streak-->
+        </div>
+        </div>
+        <div style="width: 100%; float: left; position: absolute; top: 73vw; left: 0vw; text-align: center !important;">
+          <div style="text-align: center; font-weight: bold; font-family: 'VagFont', Fallback, sans-serif !important;">
+            ID: {{ sabinusId }}
+          </div>
+        </div>
+        <div>
+          <!-- <div class="profileCowries"><span style="color: #ffc400;">cowries:</span> <b>{{cowries}}</b></div>
+          <div class="profileCowries"><span style="color: #ffc400;">juju:</span> <b>{{juju}}</b></div>
+          <div class="profileCowries"><span style="color: #ffc400;">giraffes:</span> <b>{{giraffes}}</b></div>
+          <div class="profileCowries"><span style="color: #ffc400;">begibegi:</span> <b>{{begibegi}}</b></div>
+          <br> -->
+          <!-- :val  Hide this backup button  -->
+<!--          <a *ngIf='isLoggedIn'><img src="../../assets/landingpage/profile/backup.png" (click)="backupProfile()" class="wood" alt=""></a>-->
+
+<!--          <a *ngIf='isLoggedIn'><img src="../../assets/landingpage/profile/logout.png" (click)="logoutProfile()" class="wood"-->
+<!--                                     alt=""></a>-->
+<!--          <a *ngIf='!isLoggedIn'><img src="../../assets/landingpage/profile/login.png" (click)="loginProfile()" class="wood" alt=""></a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="videoPane">
+
+  <video id="video">
+    <source id="vidSrc"  src="https://ayamsabinus.com/sabinus-api/ads/ad.mp4" type="video/mp4">
+    Your device does not support this video.
+  </video>
+
+  <div class="videoTime">
+    <span id="vtime"></span>
+  </div>
+
+  <div class="skip" (click)="skip()">
+    Skip Ad
+  </div>
+
+</div>
+
+<div class="howToPane" *ngIf='currentPopup == 1'>
+  <div class="howToPaneBox">
+    <img src="../../assets/landingpage/howtoplay/base.png" alt="" class="howToBase">
+    <div class="howToContentBox">
+      <img [src]="howToImage" alt="" class="howToImage">
+      <br>
+      <p class="howToText">{{howToText}}</p>
+      <img *ngIf="howToPane > 1" src="../../assets/landingpage/howtoplay/prev.png" alt="" class="howToProg htp1" (click)="howToPrev()">
+      <img *ngIf="howToPane != 2" src="../../assets/landingpage/howtoplay/next.png" alt="" class="howToProg htp2" (click)="howToNext()">
+      <img src="../../assets/landingpage/howtoplay/close.png" alt="" class="howToClose" (click)="howToClose()">
+    </div>
+    <img [src]="howToXter" alt="" class="helper">
+  </div>
+</div>
+
+<!-- toast -->
+<div class="toast">
+  <p>{{toastMessage}}</p>
+</div>
+
+</ion-content>
