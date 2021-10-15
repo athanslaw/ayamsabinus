@@ -612,7 +612,7 @@ export class GamearenaComponent implements OnInit {
       this.getPerkCount();
 
     } else {
-      this.toast("Ya giraffe no reach. Make you try buy");
+      this.toast("Ya giraffing no reach. Make you try buy");
       return;
     }
 
@@ -659,7 +659,6 @@ export class GamearenaComponent implements OnInit {
       this.giraffe();
     }
 
-
   }
 
 
@@ -693,15 +692,13 @@ export class GamearenaComponent implements OnInit {
         this.getPerkCount();
 
       } else {
-        this.toast("Ya cowrie no reach. Make you try buy");
+        this.toast("Ya juju no reach. Make you try buy");
         return;
       }
 
     } else {
       this.juju();
     }
-
-
 
   }
 
@@ -776,7 +773,7 @@ export class GamearenaComponent implements OnInit {
   activateJara() {
 
     if (!this.canJara) {
-      this.toast("You must find jara word first");
+      this.toast("Ya jara no reach");
       return;
     }
 
@@ -840,17 +837,17 @@ export class GamearenaComponent implements OnInit {
 
   selectBegibegiHole(letter, letterIndex, rowIndex) {
 
-    this.storage.get('cowries').then((cowries_val) => {
-      var cowrie_point = !cowries_val || cowries_val == null ? 0 : Number(cowries_val);
-      if (cowrie_point >= 150) {
+    this.storage.get('begibegi').then((begibegi) => {
+      var begibegi_point = !begibegi || begibegi == null ? 0 : Number(begibegi);
+      if (begibegi_point >= 1) {
         this.multiArray[rowIndex][letterIndex].hint = true;
-        cowrie_point -= 150;
-        this.cowries = Number(cowrie_point);
-        this.storage.set('cowries', cowrie_point);
-        // let begibegi = Number(this.getBegiBegiCount());
-        // alert("correct begibegi: "+ begibegi)
-        // begibegi -= 1;
-        // this.storage.set('begibegi', begibegi);
+        // begibegi_point -= 150;
+        // this.cowries = Number(begibegi_point);
+        // this.storage.set('cowries', begibegi_point);
+        //let begibegi = Number(this.getBegiBegiCount());
+        console.log("correct begibegi: ", begibegi_point)
+        begibegi -= 1;
+        this.storage.set('begibegi', begibegi_point);
         this.getPerkCount();
         this.sparkle();
       } else {
@@ -1167,57 +1164,57 @@ export class GamearenaComponent implements OnInit {
 
   }
 
-getRankTitle(rank) {
-  this.rankName.forEach((i, j) => {
-   if((rank-1) == j) {
-        this.rankDef = i;
-      }
-  });
-}
-
-awoof(){
-  this.router.navigate(['/awoof']);
-}
-
-toast_error(tm){
-  this.toastController.create({
-      message: tm,
-      position: 'bottom',
-      cssClass: 'toast-error-class',
-      duration: 4000,
-      buttons: [ {
-          side: 'start',
-          text: '|',
-          role: 'cancel'
-        },{
-            side: 'end',
-            icon: 'information-circle',
-          }
-      ]
-    }).then((toast) => {
-      toast.present();
+  getRankTitle(rank) {
+    this.rankName.forEach((i, j) => {
+    if((rank-1) == j) {
+          this.rankDef = i;
+        }
     });
-}
+  }
 
-toast_success(tm){
-  this.toastController.create({
-      message: tm,
-      position: 'bottom',
-      cssClass: 'toast-success-class',
-      duration: 4000,
-      buttons: [ {
-          side: 'start',
-          text: '|',
-          role: 'cancel'
-        },{
-            side: 'end',
-            icon: 'checkmark-circle'
-          }
-      ]
-    }).then((toast) => {
-      toast.present();
-    });
-}
+  awoof(){
+    this.router.navigate(['/awoof']);
+  }
+
+  toast_error(tm){
+    this.toastController.create({
+        message: tm,
+        position: 'bottom',
+        cssClass: 'toast-error-class',
+        duration: 4000,
+        buttons: [ {
+            side: 'start',
+            text: '|',
+            role: 'cancel'
+          },{
+              side: 'end',
+              icon: 'information-circle',
+            }
+        ]
+      }).then((toast) => {
+        toast.present();
+      });
+  }
+
+  toast_success(tm){
+    this.toastController.create({
+        message: tm,
+        position: 'bottom',
+        cssClass: 'toast-success-class',
+        duration: 4000,
+        buttons: [ {
+            side: 'start',
+            text: '|',
+            role: 'cancel'
+          },{
+              side: 'end',
+              icon: 'checkmark-circle'
+            }
+        ]
+      }).then((toast) => {
+        toast.present();
+      });
+  }
 
 
 }

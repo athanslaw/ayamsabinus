@@ -14,13 +14,13 @@
   </div>
 
 
-<div class="anotherMain" *ngIf='isLoaded && isLoaded > 0'>
+<div class="anotherMain" *ngIf='isLoaded == 1'>
   <div class="main">
 
 
 
     <!-- toplinks -->
-    <a (click)="showProfile()"><img [src]="users.picture.data.url" alt="" class="profilelink"></a>
+    <a (click)="showProfile()"><img src="../../assets/landingpage/profile2.png" alt="" class="profilelink"></a>
     <!-- <a href="#"><img src="../../assets/landingpage/album2.png" alt="" class="album"></a> -->
 
 
@@ -221,7 +221,7 @@
   <img src="../../assets/landingpage/welcomepack.png" alt="" class="welcomePack" (click)="welcomePack()">
 </div>
 
-  <div class="tumbumPane" *ngIf='currentPopup === 2'>
+  <div class="tumbumPane" *ngIf='currentPopup == 2'>
 
     <div class="tumbumContent">
       <img src="../../assets/landingpage/padi/close.png" alt="" class="tumbumClose" (click)="closeTumbum()">

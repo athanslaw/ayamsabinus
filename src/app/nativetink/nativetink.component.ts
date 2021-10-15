@@ -10,6 +10,7 @@ import * as $ from 'jquery';
 export class NativetinkComponent implements OnInit {
 
   imageString:String = "../../assets/nativetink/logo.png";
+  tracker: number = 0;
 
   constructor(
     private router: Router,
@@ -58,9 +59,13 @@ export class NativetinkComponent implements OnInit {
 
 
     setTimeout(() => {
-            this.router.navigate(['/landing']);
+      this.tracker=2;
+      this.router.navigate(['/landing']);
     }, 12000);
 
+    if(this.tracker==2){
+      this.router.navigate(['/landing']);
+    }
 
     // setTimeout(() => {
     //   this.imageString = "../../assets/nativetink/caption2.png";

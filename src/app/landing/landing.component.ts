@@ -102,7 +102,7 @@ export class LandingComponent implements AfterViewInit {
   }
 
   notifications:any[];
-  notificationslength:number;
+  notificationslength:number=0;
 
   padiplayRole:string = "challenger";
   padiplayGameId:any;
@@ -141,9 +141,13 @@ export class LandingComponent implements AfterViewInit {
   async ngAfterViewInit() {
     this.isLoaded=0;
     setTimeout(() => {
+      console.log("loader")
       $(".loader").fadeOut();
-      this.isLoaded=1;
     }, 4000);
+    setTimeout(() => {
+      this.isLoaded=1;
+      console.log("isLoaded");
+    }, 4500);
 
     this.loginMsg="";
     this.counter = 0;
@@ -216,7 +220,8 @@ export class LandingComponent implements AfterViewInit {
       this.google.login({}).then((res) => {
         console.log(JSON.stringify(res));
         this.storage.set('userid', res.id);
-        this.users = { id: res.userId, name: res.displayName, email: res.email, picture: { data: { url: res.imageUrl } } };
+        //this.users = { id: res.userId, name: res.displayName, email: res.email, picture: { data: { url: res.imageUrl } } };
+        this.users = { id: res.userId, name: res.displayName, email: res.email, picture: { data: { url: '../../assets/landingpage/profile2.png' } } };
         let user = {
           userid: res.userId,
           name: res.displayName,
