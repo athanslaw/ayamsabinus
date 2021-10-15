@@ -225,7 +225,6 @@ export class LandingComponent implements AfterViewInit {
 
   
   loginGoogle(){
-    $(".fbPane").fadeOut();
     this.loginMsg="";
     this.platform.ready().then(() => {
       this.google.login({}).then((res) => {
@@ -250,6 +249,7 @@ export class LandingComponent implements AfterViewInit {
       });
     })
 
+    $(".fbPane").fadeOut();
   }
 
   getFbStatus(){
