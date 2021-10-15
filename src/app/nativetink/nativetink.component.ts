@@ -63,6 +63,7 @@ export class NativetinkComponent implements OnInit {
       this.router.navigate(['/landing']);
     }, 12000);
 
+    console.log("tracker: ",this.tracker);
     if(this.tracker==2){
       this.router.navigate(['/landing']);
     }

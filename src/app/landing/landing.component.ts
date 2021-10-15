@@ -140,6 +140,18 @@ export class LandingComponent implements AfterViewInit {
 
   async ngAfterViewInit() {
     this.isLoaded=0;
+
+    this.platform.ready().then(() => {
+      document.addEventListener("backbutton", function(event){
+        console.log("Back button clicked");
+        event.preventDefault();
+        var confirmStatus = confirm("Do you want to exit?");
+        if(confirmStatus === true){
+          //navigator.app.exitApp();
+        }
+      }, false);
+    })
+
     setTimeout(() => {
       console.log("loader")
       $(".loader").fadeOut();
@@ -150,21 +162,19 @@ export class LandingComponent implements AfterViewInit {
     }, 4500);
 
     this.loginMsg="";
-    this.counter = 0;
     this.storage.get('howTo').then((val) => {
       this.counter = 1;
+      console.log("How to",val)
       if (val) {
         $(".howToPane").css({display: "none"});
         this.welcomePackLogic();
       }
       else{
+        console.log("Else",val)
         this.howToText="Tap the letters make you form the correct pidgin word(s). How many you fit find?";
         this.currentPopup = 1;
       }
     });
-    if(this.counter == 0){
-      this.welcomePackLogic();
-    }
 
     this.refreshProfileInterval= setInterval(()=>{
       this.refreshProfile();
@@ -213,6 +223,7 @@ export class LandingComponent implements AfterViewInit {
 
   }
 
+  
   loginGoogle(){
     $(".fbPane").fadeOut();
     this.loginMsg="";
@@ -1057,6 +1068,7 @@ dailyAwoof(){
     this.awoofCount2=1;
     if (val == null || val == undefined) {
       this.currentPopup=2;
+      console.log("Tumbum Checks 1");
       this.generateAwoofNumbers();
       $(".tumbumPane").fadeIn();
       this.makeAwoofRotateNormal();
@@ -1069,6 +1081,7 @@ dailyAwoof(){
       this.currentPopup=2;
         this.generateAwoofNumbers();
         $(".tumbumPane").fadeIn();
+        console.log("Tumbum Checks 2");
         this.makeAwoofRotateNormal();
     }
   });
@@ -1259,18 +1272,18 @@ hourdifference(dt2, dt1) {
   }
 
 
- welcomePackLogic(){
-   console.log("Inside welcomePackLogic");
-   this.counter = 1;
+welcomePackLogic(){
       this.storage.get('welcomePack').then((val) => {
         this.counter = 0;
         let wp= !val || val == null ? false : val;
+        console.log("Welcome pack here", val)
           //wp = false; // to deleted - just temporary
         if (wp) {
-          $(".welcomeGiftPane").css({display: 'none'});
+          this.counter=1;
           this.dailyAwoof();
         }
         else{
+          console.log("Welcome pack here")
           this.currentPopup=3;
           $(".welcomeGiftPane").fadeIn();
         }
