@@ -22,6 +22,11 @@ export class AwoofComponent implements OnInit {
   sabinusId:any;
   imageSrc:string = "../../assets/awoof/awoof.png";
   myLocation: any;
+  smallie:number = 1800;
+  oga:number = 3200;
+  presido:number = 10500;
+  chairman:number =19500;
+  jagaban:number = 50000;
 
   constructor(
     private router: Router,
@@ -102,7 +107,7 @@ export class AwoofComponent implements OnInit {
       if(this.myLocation == 'Nigeria') {
         this.imageSrc = "../../assets/awoof/awoof.png";
       } else {
-        this.imageSrc = "../../assets/awoof/awoof3.png";
+        this.imageSrc = "../../assets/awoof/awoof3.png";this.populateAmount();
       }
 
        // return JSON.stringify(result[0].countryName);
@@ -114,13 +119,29 @@ export class AwoofComponent implements OnInit {
   );
 
   }
+  populateAmount(){
+    this.smallie = 9;
+    this.oga = 16;
+    this.presido = 54;
+    this.chairman=97;
+    this.jagaban = 250;
+  }
 
-  buy(tag, price){
+  getPrice(tag){
+    if(tag=='smallie') return this.smallie;
+    if(tag=='oga') return this.oga;
+    if(tag=='presido') return this.presido;
+    if(tag=='chairman') return this.chairman;
+    if(tag=='jagaban') return this.jagaban;
+  }
+
+  buy(tag){
      if (this.sabinusId == null) {
         // alert("User not logged in");
         this.toast("User not logged in");
       }
-
+      let price = this.getPrice(tag);
+      console.log("PRICE",price)
       this.ngxService.start();
       // const browser = this.iab.create("https://paystack.com");
       this.userService.getPaystackLink(this.sabinusId,price*100,tag).subscribe((res) => {

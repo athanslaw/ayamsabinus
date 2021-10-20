@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-credits',
@@ -10,12 +11,13 @@ export class CreditsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private _location: Location
   ) { }
 
   ngOnInit() {}
 
   back(){
-    this.router.navigate(['/settings']);
+    this._location.back();
   }
 
 }

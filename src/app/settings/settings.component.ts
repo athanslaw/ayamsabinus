@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SoundService } from '../sound.service';
 import { Router } from '@angular/router';
 import { AppRate } from '@ionic-native/app-rate/ngx';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-settings',
@@ -17,6 +18,7 @@ export class SettingsComponent implements OnInit {
     private soundService: SoundService,
     private router: Router,
     private appRate: AppRate,
+    private _location: Location
   ) { }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ toggleSfx(){
 
 
 back(){
-  this.router.navigate(['/landing']);
+  this._location.back();
 }
 
 helep() {

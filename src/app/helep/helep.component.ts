@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-helep',
@@ -37,7 +38,9 @@ export class HelepComponent implements OnInit {
   jaraPaneLay: number;
 
 
-  constructor(private storage: Storage, private ngxService: NgxUiLoaderService, private router: Router) { 
+  constructor(private storage: Storage, private ngxService: NgxUiLoaderService, 
+    private router: Router,
+    private _location: Location) { 
       
     // console.log("how to pane", this.howToPane);
     if(this.howToPane == 1) {
@@ -208,8 +211,7 @@ export class HelepComponent implements OnInit {
     $(".jaraPane").fadeOut();
     $(".padiplayPane").fadeOut();
 
-    this.router.navigate(['/settings']);
-    // $(".howToPane").fadeOut();
+    this._location.back();
   }
 
 

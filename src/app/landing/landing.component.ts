@@ -10,6 +10,7 @@ import { catchError, retry, map, skip } from 'rxjs/operators';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as $ from 'jquery';
 import { Platform, LoadingController, ToastController } from '@ionic/angular';
+import { AppRate } from '@ionic-native/app-rate/ngx';
 // import { AngularFireAuth } from '@angular/fire/auth';
 // import * as firebase from 'firebase';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -58,6 +59,7 @@ export class LandingComponent implements AfterViewInit {
   loggedIn:number = 1;
   loginMsg:string;
   showNetworkVal:number = 0;
+  settingsVisibleL: boolean = false;
   users = { id: '', name: '', email: '', picture: { data: { url: '../../assets/landingpage/profile2.png' } } };
 
   opponentSelected:boolean = false;
@@ -121,6 +123,8 @@ export class LandingComponent implements AfterViewInit {
 
   minDeadline:number;
   counter:number;
+  soundStat: boolean = true;
+  sfxStat: boolean = true;
 
   tumbumResultImage:string = "totem";
 
@@ -134,23 +138,13 @@ export class LandingComponent implements AfterViewInit {
     private geoService: GeoService,
     // private fireAuth: AngularFireAuth,
     private ngxService: NgxUiLoaderService, private router: Router, public loadingController: LoadingController,
-     private backgroundMode: BackgroundMode, private toastController: ToastController
+     private backgroundMode: BackgroundMode, private toastController: ToastController,
+     private appRate: AppRate
     ) {
   }
 
   async ngAfterViewInit() {
     this.isLoaded=0;
-
-    this.platform.ready().then(() => {
-      document.addEventListener("backbutton", function(event){
-        console.log("Back button clicked");
-        event.preventDefault();
-        var confirmStatus = confirm("Do you want to exit?");
-        if(confirmStatus === true){
-          //navigator.app.exitApp();
-        }
-      }, false);
-    })
 
     setTimeout(() => {
       console.log("loader")
@@ -162,27 +156,6 @@ export class LandingComponent implements AfterViewInit {
     }, 4500);
 
     this.loginMsg="";
-    this.storage.get('howTo').then((val) => {
-      this.counter = 1;
-      console.log("How to",val)
-      if (val) {
-        $(".howToPane").css({display: "none"});
-        this.welcomePackLogic();
-      }
-      else{
-        console.log("Else",val)
-        this.howToText="Tap the letters make you form the correct pidgin word(s). How many you fit find?";
-        this.currentPopup = 1;
-      }
-    });
-
-    this.refreshProfileInterval= setInterval(()=>{
-      this.refreshProfile();
-    },10000);
-    // this.storage.set('welcomePack', false);
-    //:val Sound Service minimize/restore fix
-    this.soundService.playThemeSong();
-
 
     //before fetch profile set a test profile for nubeerodev
     //: val use this to test the flow for a default logged in user - this.sabinusId="nubeerodev"
@@ -190,10 +163,15 @@ export class LandingComponent implements AfterViewInit {
     //this.storage.set('sabinusid', 'nubeerodev');
     //this.storage.set('sabinusid', 'a44e5cm');
     //this.storage.set('sabinusid', null);
+    //this.storage.set('howTo', false);
 
     //this.storage.set('sabinusid', 'akinwale10');
     //fetch local profile from storage
     await this.fetchProfile();
+    
+    // this.storage.set('welcomePack', false);
+    //:val Sound Service minimize/restore fix
+    this.soundService.playThemeSong();
 
     this.notificationInterval=setInterval(()=>{
       this.fetchNotifications();
@@ -220,6 +198,18 @@ export class LandingComponent implements AfterViewInit {
     // this.backgroundMode.on("activate").subscribe(()=>{
     //   this.soundService.stopThemeSong();
     // });
+
+    this.refreshProfileInterval= setInterval(()=>{
+      this.refreshProfile();
+    },10000);
+
+    this.platform.ready().then(() => {
+      document.addEventListener("backbutton", function(event){
+        console.log("Back button clicked");
+        event.preventDefault();
+        return;
+      }, false);
+    })
 
   }
 
@@ -288,6 +278,7 @@ export class LandingComponent implements AfterViewInit {
     //   image: "na",
     // }
     await this.userService.registerUsersJsonp(user).subscribe((res) => {
+      this.sequencing();
       this.storage.set('sabinusid', res["user"][0]["sabinusid"]);
       this.sabinusId = res["user"][0]["sabinusid"];
 
@@ -377,8 +368,26 @@ export class LandingComponent implements AfterViewInit {
 closeFbPane(){
   $(".fbPane").fadeOut();
   this.loginMsg="";
+  this.sequencing();
 }
 
+sequencing(){
+
+  this.storage.get('howTo').then((val) => {
+    this.counter = 1;
+    console.log("How to",val)
+    if (val) {
+      $(".howToPane").css({display: "none"});
+      this.welcomePackLogic();
+    }
+    else{
+      console.log("Else",val)
+      this.howToText="Tap the letters make you form the correct pidgin word(s). How many you fit find?";
+      this.currentPopup = 1;
+    }
+  });
+
+}
 
 async refreshProfile(){
   let cowrieChange = 0;
@@ -539,6 +548,7 @@ async fetchProfile(){
       //:val proceed to fetch remote profile
 
     }else{
+      this.sequencing();
       this.loggedIn = 1;
       this.loginMsg ="";
       this.sabinusId = val;
@@ -1438,6 +1448,16 @@ startVideoTimer(){
 
 }
 
+toggleSound() {
+  this.soundStat = !this.soundStat;
+  this.soundService.toggleSound(this.soundStat);
+}
+
+toggleSfx() {
+  this.sfxStat = !this.sfxStat;
+  this.soundService.toggleSfx(this.sfxStat);
+}
+
 skip(){
   let video = <HTMLVideoElement> document.getElementById("video");
   video.pause;
@@ -1524,6 +1544,28 @@ async setAddPerks(perk_type, perk_value: number) {
       }
 
  });
+}
+
+rate() {
+  // set certain preferences
+  this.appRate.preferences.storeAppURL = {
+    // ios: '<app_id>',
+    android: 'market://details?id=io.sabinus.app',
+    // windows: 'ms-windows-store://review/?ProductId=<store_id>'
+  }
+
+  this.appRate.promptForRating(true);
+}
+
+toggleSettings() {
+  if (!this.settingsVisibleL) {
+    $(".settings1").fadeIn(500);
+    this.settingsVisibleL = !this.settingsVisibleL;
+  } else {
+    $(".settings1").fadeOut(500);
+    this.settingsVisibleL = !this.settingsVisibleL;
+  }
+
 }
 
 }

@@ -12,6 +12,7 @@ import { JaraService } from '../jara.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
+import { Location } from '@angular/common';
 
 import { BackgroundMode } from '@ionic-native/background-mode/ngx/';
 
@@ -105,7 +106,8 @@ export class GamearenaComponent implements OnInit {
     private userService: UserService,
     private backgroundMode: BackgroundMode,
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private _location: Location
   ) { }
 
   async ngOnInit() {
@@ -896,7 +898,6 @@ export class GamearenaComponent implements OnInit {
 
 
   toggleSettings() {
-
     if (!this.settingsVisible) {
       $(".settings").fadeIn(500);
       this.settingsVisible = !this.settingsVisible;
@@ -908,7 +909,8 @@ export class GamearenaComponent implements OnInit {
   }
 
   landing(){
-    this.router.navigate(['/landing']);
+    this.toggleSettings();
+    this._location.back();
   }
 
 

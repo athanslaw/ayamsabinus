@@ -67,7 +67,9 @@
     <!-- <a (click)="resetAwoof()" ><img src="../../assets/landingpage/video.png" alt="" class="tv"></a> -->
     <a (click)="triggerVideo()" ><img src="../../assets/landingpage/video.png" alt="" class="tv"></a>
 
-    <img [routerLink]="['/settings']" src="../../assets/landingpage/settings2.png" alt="" class="settingsMain">
+    <a (click)='toggleSettings()' class="topLink leftLink fadeIn fadeOne">
+      <img src="../../assets/landingpage/settings2.png" class="settingsMain" alt="">
+    </a>
 
     <a (click)="introducePadiplay()"><img src="../../assets/landingpage/padiplay2.png" alt="" class="padiplay"></a>
 
@@ -318,6 +320,39 @@
     </div>
   </div> -->
 
+  <div class="settings1">
+    <div class="settingsBox">
+  
+      <img src="../../assets/settings/popup.png" alt="" class="settingsImage">
+  
+      <div class="contentBox">
+  
+        <img (click)='toggleSettings()' src="../../assets/settings/close.png" alt="" class="closeSettings">
+  
+        <div class="bottonsRow">
+          <img (click)="toggleSound()" src="../../assets/settings/{{soundStat?'sound':'sound2'}}.png" class="button sound"
+            alt="">
+  
+          <img (click)="toggleSfx()" src="../../assets/settings/{{sfxStat?'sfx':'sfx2'}}.png" class="button sfx" alt="">
+        </div>
+  
+        <div class="woodBars">
+          <img style="left: 2.5%;" [routerLink]="['/level']" src="../../assets/settings/levels.png" alt="" class="wBar">
+          <a href="/helep">
+            <img style="right: 2.5%;" src="../../assets/settings/helep.png" alt="" class="wBar">
+          </a>
+          <img style="left: 2.5%;" (click)='rate()' src="../../assets/settings/rateus.png" alt="" class="wBar">
+          <img style="right: 2.5%;" src="../../assets/settings/konect.png" alt="" class="wBar">
+          <img style="left: 2.5%;" src="../../assets/settings/contactus.png" alt="" class="wBar">
+          <img style="right: 2.5%;" [routerLink]="['/credits']" src="../../assets/settings/speshiatainks.png" alt=""
+            class="wBar">
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+
   <div class="profilePane">
     <div class="profileBox">
       <img src="../../assets/landingpage/profile/profilepop.png" alt="" class="profileBase">
@@ -403,6 +438,7 @@
     <img [src]="howToXter" alt="" class="helper">
   </div>
 </div>
+
 
 <!-- toast -->
 <div class="toast">
