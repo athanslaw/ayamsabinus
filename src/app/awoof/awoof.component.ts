@@ -107,7 +107,8 @@ export class AwoofComponent implements OnInit {
       if(this.myLocation == 'Nigeria') {
         this.imageSrc = "../../assets/awoof/awoof.png";
       } else {
-        this.imageSrc = "../../assets/awoof/awoof3.png";this.populateAmount();
+        this.imageSrc = "../../assets/awoof/awoof3.png";
+        this.populateAmount();
       }
 
        // return JSON.stringify(result[0].countryName);

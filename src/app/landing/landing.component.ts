@@ -59,6 +59,7 @@ export class LandingComponent implements AfterViewInit {
   loggedIn:number = 1;
   loginMsg:string;
   showNetworkVal:number = 0;
+  networkStatus: boolean = true;
   settingsVisibleL: boolean = false;
   users = { id: '', name: '', email: '', picture: { data: { url: '../../assets/landingpage/profile2.png' } } };
 
@@ -897,7 +898,9 @@ fetchNotifications(){
           if (min < 24) { this.minDeadline = Math.abs(24 - min)}
     }else{
     }
+    this.networkStatus = true;
   },function(){
+    this.networkStatus = false;
     //this.toast("Check ya network make you try again");
   });
 }
@@ -1413,7 +1416,9 @@ testGeo(){
 triggerVideo(){
   $(".videoPane").fadeIn().css({display:'flex'});
   this.startVideoTimer();
+
 }
+
 
 closeVideo(){
   $(".videoPane").fadeOut();
@@ -1468,14 +1473,17 @@ skip(){
 }
 
 reward(){
-  this.toast("reward: 1 padiplay token");
+
+  let shuffleWithin = ["juju", "begibegi", "giraffes", "tokens"];
+  let shuffleLabel = ["juju", "begibegi", "giraffing", "padiplay token"];
+
+  const shuffle =   Math.round(Math.random() * 3);
+
+  this.toast("reward: 1 "+shuffleLabel[shuffle]);
   this.soundService.playCowrieSound();
 
-  this.setAddPerks("tokens", 1)
+  this.setAddPerks(shuffleWithin[shuffle], 1);
 
-  if (this.sabinusId && this.sabinusId !== "") {
-    this.userService.logPlayerPerks(this.sabinusId,0,0,0,1);
-  }
 }
 
 howToClose(){
