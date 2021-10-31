@@ -93,8 +93,6 @@ export class PadiplayComponent implements OnInit {
 
   jaraPlayed:any[];
 
-  canJara:boolean = false;
-
   jaraPercent:string;
 
   jaraFull:number;
@@ -737,14 +735,13 @@ checkForJara(){
           match.push(word);
     }else{
           $(".jara").removeClass('animate__shakeY');
-          this.canJara = false;
     }
 
   });
 
 
   if (match.length > 0) {
-    this.canJara = true;
+    this.jaraService.saveJaraFound(1);
     $(".jara").addClass('animate__shakeY');
 
   }
@@ -761,7 +758,7 @@ jaraNotUsed(word){
 
 activateJara(){
 
-  if (!this.canJara ) {
+  if (this.jaraService.getJaraFound() <1) {
     this.toast("you must find jara word first");
     return;
   }
@@ -780,6 +777,7 @@ activateJara(){
   this.storage.set('jaraPlayed', this.jaraPlayed);
 
   this.jaraService.addJara(10);
+  this.jaraService.reduceJaraFound(1);
 
   $(".jaraPane").fadeIn();
 

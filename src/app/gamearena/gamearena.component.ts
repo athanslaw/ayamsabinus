@@ -60,8 +60,6 @@ export class GamearenaComponent implements OnInit {
 
   jaraPlayed: any[];
 
-  canJara: boolean = false;
-
   jaraPercent: string;
 
   jaraFull: number;
@@ -293,24 +291,6 @@ export class GamearenaComponent implements OnInit {
 
 
   bubble() {
-
-    // $(".bubble1").fadeIn(800).fadeOut(2000);
-
-    // setTimeout(() => {
-    //   $(".bubble2").fadeIn(700).fadeOut(2000);
-    // }, 1000);
-
-    // setTimeout(() => {
-    //   $(".bubble3").fadeIn(900).fadeOut(1500);
-    // }, 1500);
-
-    // setTimeout(() => {
-    //   $(".bubble4").fadeIn(800).fadeOut(2000);
-    // }, 2000);
-
-    // setTimeout(() => {
-    //   $(".bubble5").fadeIn(700).fadeOut(2500);
-    // }, 2500);
 
     var imgURL = "../../assets/game/bubble1.gif";
     var timestamp = new Date().getTime();
@@ -735,10 +715,9 @@ export class GamearenaComponent implements OnInit {
   }
 
 
-
-
   checkForJara() {
 
+    console.log("checkJara", (this.jaraWords));
     let activeWord = [];
     this.selectedLetters.forEach((letter, index) => { activeWord.push(letter.letter) });
 
@@ -750,14 +729,12 @@ export class GamearenaComponent implements OnInit {
         match.push(word);
       } else {
         $(".jara").removeClass('animate__shakeY');
-        this.canJara = false;
       }
 
     });
 
-
     if (match.length > 0) {
-      this.canJara = true;
+      this.jaraService.saveJaraFound(1);
       $(".jara").addClass('animate__shakeY');
 
     }
@@ -774,11 +751,11 @@ export class GamearenaComponent implements OnInit {
 
   activateJara() {
 
-    if (!this.canJara) {
+    if (this.jaraService.getJaraFound() < 1) {
       this.toast("Ya jara no reach");
       return;
     }
-
+    console.log("Jara found: ",this.jaraService.getJaraFound())
     // this.cowries +=10;
     // this.storage.set('cowries', this.cowries);
 
@@ -793,6 +770,7 @@ export class GamearenaComponent implements OnInit {
     this.storage.set('jaraPlayed', this.jaraPlayed);
 
     this.jaraService.addJara(10);
+    this.jaraService.reduceJaraFound(1);
 
     $(".jaraPane").fadeIn();
 
@@ -918,7 +896,7 @@ export class GamearenaComponent implements OnInit {
   //utility function
 
   checkIfHasBeenSelected(obj) {
-    return this.arrayContainsObject(obj, this.selectedLetters)
+    return this.arrayContainsObject(obj, this.selectedLetters);
   }
 
 
