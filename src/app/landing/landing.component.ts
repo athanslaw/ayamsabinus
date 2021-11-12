@@ -4,9 +4,6 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { UserService } from '../user.service';
 import { SoundService } from '../sound.service';
 import { GeoService } from '../geo.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry, map, skip } from 'rxjs/operators';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as $ from 'jquery';
 import { Platform, LoadingController, ToastController } from '@ionic/angular';
@@ -234,7 +231,7 @@ export class LandingComponent implements AfterViewInit {
         this.loginMsg = "";
       })
       .catch((err) => {
-         this.showNetwork();
+        this.checkNetwork("Error: "+JSON.stringify(err));
         console.log("error: ",JSON.stringify(err));
         this.loggedIn = 0;
       });
@@ -257,7 +254,8 @@ export class LandingComponent implements AfterViewInit {
         this.fbLogin();
       }
     })
-    .catch((e) => {
+    .catch(e => {
+      this.toast("Error: "+JSON.stringify(e))
       console.log(e);
     });
 
@@ -299,7 +297,7 @@ export class LandingComponent implements AfterViewInit {
       this.juju = res["user"][0]["juju"];
       this.toast("Login successful..");
     },(err)=>{
-      this.showNetwork();
+      this.checkNetwork("Error: "+JSON.stringify(err));
     });
   }
 
@@ -336,17 +334,17 @@ export class LandingComponent implements AfterViewInit {
               image: userImg,
             }
             this.saveUser(user);
-          }).catch(e => {
-            this.showNetwork();
-            console.log(e);
+          }).catch(err => {
+            this.checkNetwork("Error: "+JSON.stringify(err));
+            console.log(err);
           });
       } else {
             this.loggedIn = 0;
-            this.showNetwork();
+            this.checkNetwork("Something went wrong");
       }
 
-		}, error =>{
-			this.showNetwork();
+		}, (error) =>{
+			this.checkNetwork("Error: "+JSON.stringify(error));
       // alert("save user error: "+ error);
       console.log(error);
 		});
@@ -786,7 +784,7 @@ introducePadiplay2Prod(){
          this.ngxService.stop();
          console.log("error");
          $(".padiPane").fadeOut();
-         this.showNetwork();
+         this.checkNetwork("You neva login");
        });
 }
 
@@ -1414,9 +1412,34 @@ testGeo(){
 }
 
 triggerVideo(){
-  $(".videoPane").fadeIn().css({display:'flex'});
-  this.startVideoTimer();
+  // check network
+  console.log("this.sabinusId",this.sabinusId);
+  if (!this.sabinusId) {
+    this.checkNetwork("You neva login");
+  }
+  else{
+    this.userService.fetchUser("ddd").subscribe((res) => {
+      $(".videoPane").fadeIn().css({display:'flex'});
+      this.startVideoTimer();
+    },(err)=>{
+      this.checkNetwork("Something went wrong");
+    });
+  } 
+  
+}
 
+checkNetwork(errorMsg){
+  let networkStatus = true;
+  
+  this.userService.fetchUser("ddd").subscribe((res) => {
+    console.log("here");
+    this.toast(errorMsg);
+  },(err)=>{
+    networkStatus = false;
+    this.showNetwork();
+  });
+  console.log("this.error ",networkStatus);
+  this.networkStatus = networkStatus;
 }
 
 

@@ -76,9 +76,10 @@ export class AwoofComponent implements OnInit {
 
     await this.storage.get('sabinusid').then((val) => {
       if (!val) {
-        this.sabinusId = null;
+        this.sabinusId = "";
       } else {
         this.sabinusId = val;
+        this.logGameScore();
       }
     });
 
@@ -132,27 +133,55 @@ export class AwoofComponent implements OnInit {
     if(tag=='smallie') return this.smallie;
     if(tag=='oga') return this.oga;
     if(tag=='presido') return this.presido;
-    if(tag=='chairman') return this.chairman;
-    if(tag=='jagaban') return this.jagaban;
+    if(tag=='chairman')return this.chairman;
+    if(tag=='jagaban')return this.jagaban;
   }
 
+  async giveValue(){
+    //fetch from remote
+
+    this.userService.fetchUser(this.sabinusId).subscribe((res) => {
+
+      this.storage.set('cowries', Number(res["user"][0]["cowries"]));
+
+      this.storage.set('juju', Number(res["user"][0]["juju"]));
+
+      this.storage.set('giraffes', Number(res["user"][0]["giraffes"]));
+
+      this.storage.set('begibegi', Number(res["user"][0]["begibegi"]));
+
+      this.storage.set('tokens', Number(res["user"][0]["tokens"]));
+    });
+  }
+
+  async logGameScore(){
+    let cowries;
+    await this.storage.get('cowries').then((val) => {
+      cowries = !val || val == null ? 0 : parseInt(val);
+      this.userService.logPlayerCowries(this.sabinusId, Number(cowries)).subscribe((res)=>{ });
+    });
+  }
+  
   buy(tag){
-     if (this.sabinusId == null) {
+     if (this.sabinusId == "") {
         // alert("User not logged in");
         this.toast("User not logged in");
+      }else{
+        let price = this.getPrice(tag);
+        console.log("PRICE",price)
+        this.ngxService.start();
+        // const browser = this.iab.create("https://paystack.com");
+        this.userService.getPaystackLink(this.sabinusId,price*100,tag).subscribe((res) => {
+          this.ngxService.stop();
+          let url = res["data"]["authorization_url"];
+          const browser = this.iab.create(url);
+          console.log("Response: "+JSON.stringify(res))
+          this.giveValue();
+        },(err)=>{
+          this.ngxService.stop();
+          this.checkNetwork("Something went wrong");
+        });
       }
-      let price = this.getPrice(tag);
-      console.log("PRICE",price)
-      this.ngxService.start();
-      // const browser = this.iab.create("https://paystack.com");
-      this.userService.getPaystackLink(this.sabinusId,price*100,tag).subscribe((res) => {
-        this.ngxService.stop();
-        let url = res["data"]["authorization_url"];
-        const browser = this.iab.create(url);
-      },(err)=>{
-        this.ngxService.stop();
-        this.showNetwork();
-      });
   }
 
   back(){
@@ -195,6 +224,16 @@ export class AwoofComponent implements OnInit {
       $(".networkPane").fadeOut();
     }, 3000);
  }
+
+checkNetwork(errorMsg){
+  this.userService.fetchUser("ddd").subscribe((res) => {
+    console.log("here");
+    this.toast(errorMsg);
+  },(err)=>{
+    this.showNetwork();
+  });
+}
+
 
 toast(tm) {
   this.toastMessage = tm;
