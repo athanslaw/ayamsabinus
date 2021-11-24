@@ -39,13 +39,13 @@ export class AppComponent {
       console.log("platform",Capacitor.platform);
       // prevent default back
       if (Capacitor.platform !== "web") {
-        document.addEventListener("backbutton", function(event){
-          event.preventDefault();
-          var confirmStatus = confirm("Do you want to exit?");
-          if(confirmStatus === true){
-            //navigator.app.exitApp();
-          }
-        }, false);
+
+        this.platform.backButton.subscribeWithPriority(99, () => { 
+          console.log("Back button Clicked")
+          //var backRoute = this.prevRoute.getPreviousUrl();
+          alert("Kindly use the back button within the app");
+          
+        });
       }
       // subscribe to a topic
       // this.fcm.subscribeToTopic('Deals');

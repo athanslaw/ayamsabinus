@@ -137,10 +137,10 @@ export class AwoofComponent implements OnInit {
     if(tag=='jagaban')return this.jagaban;
   }
 
-  async giveValue(){
+  async giveValue(sid){
     //fetch from remote
 
-    this.userService.fetchUser(this.sabinusId).subscribe((res) => {
+    this.userService.fetchUser(sid).subscribe((res) => {
 
       this.storage.set('cowries', Number(res["user"][0]["cowries"]));
 
@@ -176,7 +176,7 @@ export class AwoofComponent implements OnInit {
           let url = res["data"]["authorization_url"];
           const browser = this.iab.create(url);
           console.log("Response: "+JSON.stringify(res))
-          this.giveValue();
+          this.giveValue(this.sabinusId);
         },(err)=>{
           this.ngxService.stop();
           this.checkNetwork("Something went wrong");

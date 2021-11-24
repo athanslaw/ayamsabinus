@@ -179,16 +179,12 @@ export class LandingComponent implements AfterViewInit {
       console.log("paused");
       this.soundService.stopThemeSong();
       clearInterval(this.refreshProfileInterval);
-      clearInterval(this.notificationInterval);
     })
     this.platform.resume.subscribe(()=>{
       console.log("resumed");
       this.refreshProfileInterval =setInterval(()=>{
         this.refreshProfile();
       },10000);
-      this.notificationInterval =setInterval(()=>{
-        this.fetchNotifications();
-      },30000);
       this.soundService.playThemeSong();
     })
 
