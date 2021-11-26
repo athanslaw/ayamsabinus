@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <bool name="fb_auto_log_app_events_enabled">true</bool>
+    <bool name="fb_advertiser_id_collection_enabled">true</bool>
+    <string name="fb_app_id">416232732769644</string>
+    <string name="fb_app_name">sabinus</string>
+    <bool name="fb_hybrid_app_events">false</bool>
+</resources>
