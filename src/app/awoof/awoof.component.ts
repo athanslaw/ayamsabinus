@@ -19,7 +19,7 @@ import * as $ from 'jquery';
 })
 export class AwoofComponent implements OnInit {
   toastMessage: string = "";
-  sabinusId:any;
+  sabinusId:string = "";
   imageSrc:string = "../../assets/awoof/awoof.png";
   myLocation: any;
   smallie:number = 1800;
@@ -60,7 +60,7 @@ export class AwoofComponent implements OnInit {
     //     // }
     //   }
     // });
-
+    this.getSabinusId();
     await this.getCoords();
 
     // let c = await this.geoService.getCoords();
@@ -74,7 +74,10 @@ export class AwoofComponent implements OnInit {
     //   }
     // }
 
-    await this.storage.get('sabinusid').then((val) => {
+  }
+
+  getSabinusId(){
+    this.storage.get('sabinusid').then((val) => {
       if (!val) {
         this.sabinusId = "";
       } else {
@@ -82,9 +85,7 @@ export class AwoofComponent implements OnInit {
         this.logGameScore();
       }
     });
-
   }
-
 
   getCoords() {
     return this.geolocation.getCurrentPosition().then((resp) => {
@@ -154,9 +155,9 @@ export class AwoofComponent implements OnInit {
     });
   }
 
-  async logGameScore(){
+  logGameScore(){
     let cowries;
-    await this.storage.get('cowries').then((val) => {
+    this.storage.get('cowries').then((val) => {
       cowries = !val || val == null ? 0 : parseInt(val);
       this.userService.logPlayerCowries(this.sabinusId, Number(cowries)).subscribe((res)=>{ });
     });

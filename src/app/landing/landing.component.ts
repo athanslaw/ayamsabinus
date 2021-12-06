@@ -595,17 +595,23 @@ fetchProfileRemote(sid){
         this.storage.set('cowries', Number(this.cowries));
       }
 
-      this.juju = res["user"][0]["juju"];
-      this.storage.set('juju', Number(this.juju));
+      if(Number(this.juju) < Number(res["user"][0]["juju"])){
+        this.juju = res["user"][0]["juju"];
+        this.storage.set('juju', Number(this.juju));
+      }
+      if(Number(this.giraffes) < Number(res["user"][0]["giraffes"])){
+        this.giraffes = res["user"][0]["giraffes"];
+        this.storage.set('giraffes', Number(this.giraffes));
+      }
+      if(Number(this.begibegi) < Number(res["user"][0]["begibegi"])){
+        this.begibegi = res["user"][0]["begibegi"];
+        this.storage.set('begibegi', Number(this.begibegi));
+      }
 
-      this.giraffes = res["user"][0]["giraffes"];
-      this.storage.set('giraffes', Number(this.giraffes));
-
-      this.begibegi = res["user"][0]["begibegi"];
-      this.storage.set('begibegi', Number(this.begibegi));
-
-      this.tokens = res["user"][0]["tokens"];
-      this.storage.set('tokens', Number(this.tokens));
+      if(Number(this.tokens) < Number(res["user"][0]["token"])){
+        this.tokens = res["user"][0]["tokens"];
+        this.storage.set('tokens', Number(this.tokens));
+      }
 
       this.gamesplayed =  res["user"][0]["gamesplayed"];
       this.storage.set('gamesplayed', Number(this.gamesplayed));
@@ -640,11 +646,12 @@ async logGameScore(){
   let cowries;
   await this.storage.get('cowries').then((val) => {
     cowries = !val || val == null ? 0 : parseInt(val);
+
+    if(Number(this.cowries) < Number(cowries)){
+      this.cowries = cowries;
+      this.userService.logPlayerCowries(this.sabinusId, Number(cowries)).subscribe((res)=>{ });
+    }
   });
-  if(this.cowries > cowries){
-    this.cowries = cowries;
-    await this.userService.logPlayerCowries(this.sabinusId, Number(cowries)).subscribe((res)=>{ });
-  }
 }
 
 setGamePerks(){
@@ -897,6 +904,7 @@ fetchNotifications(){
     this.networkStatus = false;
     //this.toast("Check ya network make you try again");
   });
+  this.fetchProfileRemote(this.sabinusId);
 }
 
 analyseDeadline(dt){
@@ -1493,10 +1501,10 @@ skip(){
 
 reward(){
 
-  let shuffleWithin = ["juju", "begibegi", "giraffes", "tokens"];
-  let shuffleLabel = ["juju", "begibegi", "giraffing", "padiplay token"];
+  let shuffleWithin = ["juju", "begibegi", "giraffes", "tokens", "cowries"];
+  let shuffleLabel = ["juju", "begibegi", "giraffing", "padiplay token", "cowrie"];
 
-  const shuffle =   Math.round(Math.random() * 3);
+  const shuffle =   Math.round(Math.random() * 4);
 
   this.toast("reward: 1 "+shuffleLabel[shuffle]);
   this.soundService.playCowrieSound();
