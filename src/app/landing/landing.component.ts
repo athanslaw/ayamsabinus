@@ -812,8 +812,10 @@ fetchOpponent(opponentId){
     $(".sabinusCodePane").fadeOut();
     this.ngxService.stop();
     this.padirequest.opponentId = "";
+    /*
     $(".padiMain").fadeIn();
     $(".sabinusCodePane").fadeOut();
+    */
     if (res["user"].length < 1) {
       this.error.status = true;
       this.error.msg = "No matching user found";
@@ -841,10 +843,10 @@ fetchOpponent(opponentId){
     $(".padiMain").fadeIn();
     $(".sabinusCodePane").fadeOut();
     this.ngxService.stop();
-    this.error.status = true;
-    this.error.msg = "There was an error finding an opponent, please try again later";
-    console.log("Error finding opponent");
-    this.clearError();
+
+    //check network    
+    this.checkNetworkPadiPlay("There was an error finding an opponent, please try again later");
+    
   });
 }
 
@@ -1439,6 +1441,23 @@ checkNetwork(errorMsg){
     console.log("here");
     this.toast(errorMsg);
   },(err)=>{
+    networkStatus = false;
+    this.showNetwork();
+  });
+  console.log("this.error ",networkStatus);
+  this.networkStatus = networkStatus;
+}
+
+checkNetworkPadiPlay(errorMsg){
+  let networkStatus = true;
+  
+  this.userService.fetchUser("ddd").subscribe((res) => {
+    this.error.status = true;
+    this.error.msg = errorMsg;
+    console.log("Error finding opponent");
+    this.clearError();
+  },(err)=>{
+    this.closePadiPlay2();
     networkStatus = false;
     this.showNetwork();
   });
