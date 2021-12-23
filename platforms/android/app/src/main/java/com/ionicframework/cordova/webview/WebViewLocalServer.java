@@ -47,7 +47,7 @@ import java.util.UUID;
  * methods.
  */
 public class WebViewLocalServer {
-  private static String TAG = "WebViewAssetServer";
+  private static final String TAG = "WebViewAssetServer";
   private String basePath;
   public final static String httpScheme = "http";
   public final static String httpsScheme = "https";
@@ -63,7 +63,7 @@ public class WebViewLocalServer {
   private boolean isAsset;
   // Whether to route all requests to paths without extensions back to `index.html`
   private final boolean html5mode;
-  private ConfigXmlParser parser;
+  private final ConfigXmlParser parser;
 
   public String getAuthority() { return authority; }
 
@@ -83,11 +83,11 @@ public class WebViewLocalServer {
    */
   public abstract static class PathHandler {
     protected String mimeType;
-    private String encoding;
-    private String charset;
-    private int statusCode;
-    private String reasonPhrase;
-    private Map<String, String> responseHeaders;
+    private final String encoding;
+    private final String charset;
+    private final int statusCode;
+    private final String reasonPhrase;
+    private final Map<String, String> responseHeaders;
 
     public PathHandler() {
       this(null, null, 200, "OK", null);
@@ -136,8 +136,8 @@ public class WebViewLocalServer {
    * Information about the URLs used to host the assets in the WebView.
    */
   public static class AssetHostingDetails {
-    private Uri httpPrefix;
-    private Uri httpsPrefix;
+    private final Uri httpPrefix;
+    private final Uri httpsPrefix;
 
     /*package*/ AssetHostingDetails(Uri httpPrefix, Uri httpsPrefix) {
       this.httpPrefix = httpPrefix;
@@ -233,10 +233,7 @@ public class WebViewLocalServer {
 
   private boolean isLocalFile(Uri uri) {
     String path = uri.getPath();
-    if (path.startsWith(contentStart) || path.startsWith(fileStart)) {
-      return true;
-    }
-    return false;
+      return path.startsWith(contentStart) || path.startsWith(fileStart);
   }
 
 
@@ -275,7 +272,7 @@ public class WebViewLocalServer {
     if (path.equals("") || path.equals("/") || (!uri.getLastPathSegment().contains(".") && html5mode)) {
       InputStream stream;
       String launchURL = parser.getLaunchUrl();
-      String launchFile = launchURL.substring(launchURL.lastIndexOf("/") + 1, launchURL.length());
+      String launchFile = launchURL.substring(launchURL.lastIndexOf("/") + 1);
       try {
         String startPath = this.basePath + "/" + launchFile;
         if (isAsset) {
@@ -329,7 +326,7 @@ public class WebViewLocalServer {
 
       int periodIndex = path.lastIndexOf(".");
       if (periodIndex >= 0) {
-        String ext = path.substring(path.lastIndexOf("."), path.length());
+        String ext = path.substring(path.lastIndexOf("."));
 
         // TODO: Conjure up a bit more subtlety than this
         if (ext.equals(".html")) {
@@ -605,13 +602,13 @@ public class WebViewLocalServer {
     }
 
     @Override
-    public int read(byte b[]) throws IOException {
+    public int read(byte[] b) throws IOException {
       InputStream is = getInputStream();
       return (is != null) ? is.read(b) : -1;
     }
 
     @Override
-    public int read(byte b[], int off, int len) throws IOException {
+    public int read(byte[] b, int off, int len) throws IOException {
       InputStream is = getInputStream();
       return (is != null) ? is.read(b, off, len) : -1;
     }
@@ -625,7 +622,7 @@ public class WebViewLocalServer {
 
   // For L and above.
   private static class LollipopLazyInputStream extends LazyInputStream {
-    private Uri uri;
+    private final Uri uri;
     private InputStream is;
 
     public LollipopLazyInputStream(PathHandler handler, Uri uri) {

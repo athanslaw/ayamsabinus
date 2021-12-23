@@ -35,7 +35,7 @@ class SystemCookieManager implements ICordovaCookieManager {
         webView = webview;
         cookieManager = CookieManager.getInstance();
 
-        cookieManager.setAcceptFileSchemeCookies(true);
+        CookieManager.setAcceptFileSchemeCookies(true);
         cookieManager.setAcceptThirdPartyCookies(webView, true);
     }
 
@@ -59,4 +59,4 @@ class SystemCookieManager implements ICordovaCookieManager {
     public void flush() {
         cookieManager.flush();
     }
-};
+}

@@ -18,9 +18,9 @@ def IGNORED = [
     'multidex-instrumentation'
 ]
 
-println("+-----------------------------------------------------------------");
-println("| " + PLUGIN_NAME + ": " + ANDROID_SUPPORT_VERSION);
-println("+-----------------------------------------------------------------");
+println("+-----------------------------------------------------------------")
+println("| " + PLUGIN_NAME + ": " + ANDROID_SUPPORT_VERSION)
+println("+-----------------------------------------------------------------")
 
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->

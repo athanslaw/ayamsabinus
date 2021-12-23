@@ -80,9 +80,9 @@ public class CordovaActivity extends Activity {
     // The webview for our app
     protected CordovaWebView appView;
 
-    private static int ACTIVITY_STARTING = 0;
-    private static int ACTIVITY_RUNNING = 1;
-    private static int ACTIVITY_EXITING = 2;
+    private static final int ACTIVITY_STARTING = 0;
+    private static final int ACTIVITY_RUNNING = 1;
+    private static final int ACTIVITY_EXITING = 2;
 
     // Keep app running when pause is received. (default = true)
     // If true, then the JavaScript and native code continue to run in the background
@@ -504,7 +504,7 @@ public class CordovaActivity extends Activity {
      * @param grantResults
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[],
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         try
         {

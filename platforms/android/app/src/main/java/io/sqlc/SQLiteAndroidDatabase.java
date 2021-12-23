@@ -153,7 +153,7 @@ class SQLiteAndroidDatabase
                 QueryType queryType = getQueryType(query);
                 //Log.v("executeSqlBatch", "query type: " + queryType);
 
-                if (queryType == QueryType.update || queryType == queryType.delete) {
+                if (queryType == QueryType.update || queryType == QueryType.delete) {
                     // if (isPostHoneycomb) {
                         SQLiteStatement myStatement = mydb.compileStatement(query);
 
@@ -586,7 +586,7 @@ class SQLiteAndroidDatabase
         }
     }
 
-    static enum QueryType {
+    enum QueryType {
         update,
         insert,
         delete,

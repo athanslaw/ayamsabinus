@@ -33,9 +33,9 @@ import android.webkit.GeolocationPermissions.Callback;
 
 public class InAppChromeClient extends WebChromeClient {
 
-    private CordovaWebView webView;
-    private String LOG_TAG = "InAppChromeClient";
-    private long MAX_QUOTA = 100 * 1024 * 1024;
+    private final CordovaWebView webView;
+    private final String LOG_TAG = "InAppChromeClient";
+    private final long MAX_QUOTA = 100 * 1024 * 1024;
 
     public InAppChromeClient(CordovaWebView webView) {
         super();

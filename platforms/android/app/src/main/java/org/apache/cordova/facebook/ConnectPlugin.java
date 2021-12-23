@@ -673,12 +673,12 @@ public class ConnectPlugin extends CordovaPlugin {
             }
         }
 
-        logger.setUserData(params.get("em"), params.get("fn"), params.get("ln"), params.get("ph"), params.get("db"), params.get("ge"), params.get("ct"), params.get("st"), params.get("zp"), params.get("cn"));
+        AppEventsLogger.setUserData(params.get("em"), params.get("fn"), params.get("ln"), params.get("ph"), params.get("db"), params.get("ge"), params.get("ct"), params.get("st"), params.get("zp"), params.get("cn"));
         callbackContext.success();
     }
 
     private void executeClearUserData(JSONArray args, CallbackContext callbackContext) {
-        logger.clearUserData();
+        AppEventsLogger.clearUserData();
         callbackContext.success();
     }
 
@@ -962,7 +962,7 @@ public class ConnectPlugin extends CordovaPlugin {
                 int splitPoint = query.indexOf("=");
                 if (splitPoint > 0) {
                     String key = query.substring(0, splitPoint);
-                    String value = query.substring(splitPoint + 1, query.length());
+                    String value = query.substring(splitPoint + 1);
                     params.putString(key, value);
                 }
             }

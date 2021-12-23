@@ -196,9 +196,9 @@ public class CordovaInterfaceImpl implements CordovaInterface {
     }
 
     private static class ActivityResultHolder {
-        private int requestCode;
-        private int resultCode;
-        private Intent intent;
+        private final int requestCode;
+        private final int resultCode;
+        private final Intent intent;
 
         public ActivityResultHolder(int requestCode, int resultCode, Intent intent) {
             this.requestCode = requestCode;

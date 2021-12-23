@@ -42,7 +42,7 @@ public class SQLitePlugin extends CordovaPlugin {
      * THANKS to @NeoLSN (Jason Yang/楊朝傑) for giving the pointer in:
      * https://github.com/litehelpers/Cordova-sqlite-storage/issues/727
      */
-    private Map<String, DBRunner> dbrmap = new ConcurrentHashMap<String, DBRunner>();
+    private final Map<String, DBRunner> dbrmap = new ConcurrentHashMap<String, DBRunner>();
 
     /**
      * NOTE: Using default constructor, no explicit constructor.
@@ -303,8 +303,8 @@ public class SQLitePlugin extends CordovaPlugin {
 
     private class DBRunner implements Runnable {
         final String dbname;
-        private boolean oldImpl;
-        private boolean bugWorkaround;
+        private final boolean oldImpl;
+        private final boolean bugWorkaround;
 
         final BlockingQueue<DBQuery> q;
         final CallbackContext openCbc;
@@ -418,7 +418,7 @@ public class SQLitePlugin extends CordovaPlugin {
         }
     }
 
-    private static enum Action {
+    private enum Action {
         echoStringValue,
         open,
         close,

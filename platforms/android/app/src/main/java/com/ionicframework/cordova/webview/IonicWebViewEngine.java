@@ -127,7 +127,7 @@ public class IonicWebViewEngine extends SystemWebViewEngine {
     return preferences.getBoolean("DisableDeploy", false);
   }
   private class ServerClient extends SystemWebViewClient {
-    private ConfigXmlParser parser;
+    private final ConfigXmlParser parser;
 
     public ServerClient(SystemWebViewEngine parentEngine, ConfigXmlParser parser) {
       super(parentEngine);

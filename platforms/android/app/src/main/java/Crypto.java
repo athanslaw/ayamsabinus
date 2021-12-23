@@ -2,6 +2,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -26,13 +27,13 @@ public class Crypto {
     public static final String PBKDF2_DERIVATION_ALGORITHM = "PBKDF2WithHmacSHA1"; // Android 10+
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding"; // Android 1+
 
-    private static String DELIMITER = "@~@~@";
+    private static final String DELIMITER = "@~@~@";
 
-    private static int KEY_LENGTH = 256;
-    private static int ITERATION_COUNT = 10000;
+    private static final int KEY_LENGTH = 256;
+    private static final int ITERATION_COUNT = 10000;
     private static final int PKCS5_SALT_LENGTH = 8;
 
-    private static SecureRandom random = new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
 
 
     public static SecretKey deriveKeyPbkdf2(byte[] salt, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -77,7 +78,7 @@ public class Crypto {
         cipher.init(Cipher.ENCRYPT_MODE, key, ivParams);
         Log.d(TAG, "Cipher IV: "
                 + (cipher.getIV() == null ? null : toHex(cipher.getIV())));
-        byte[] cipherText = cipher.doFinal(plaintext.getBytes("UTF-8"));
+        byte[] cipherText = cipher.doFinal(plaintext.getBytes(StandardCharsets.UTF_8));
 
         if (salt != null) {
             return String.format("%s%s%s%s%s", toBase64(salt), DELIMITER,
@@ -112,7 +113,7 @@ public class Crypto {
         Log.d(TAG, "Cipher IV: " + toHex(cipher.getIV()));
         byte[] plaintext = cipher.doFinal(cipherBytes);
 
-        return new String(plaintext, "UTF-8");
+        return new String(plaintext, StandardCharsets.UTF_8);
     }
 
     public static String decryptPbkdf2(String ciphertext, String password) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {

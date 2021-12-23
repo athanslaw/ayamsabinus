@@ -179,5 +179,5 @@ public class UriMatcher {
   private Object mCode;
   private int mWhich;
   private String mText;
-  private ArrayList<UriMatcher> mChildren;
+  private final ArrayList<UriMatcher> mChildren;
 }

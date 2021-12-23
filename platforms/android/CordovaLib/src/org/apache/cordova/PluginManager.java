@@ -36,7 +36,7 @@ import android.os.Debug;
  * from JavaScript.
  */
 public class PluginManager {
-    private static String TAG = "PluginManager";
+    private static final String TAG = "PluginManager";
     private static final int SLOW_EXEC_WARNING_THRESHOLD = Debug.isDebuggerConnected() ? 60 : 16;
 
     // List of service entries

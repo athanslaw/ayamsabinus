@@ -198,7 +198,7 @@ public class Notification extends CordovaPlugin {
                 });
 
                 changeTextDirection(dlg);
-            };
+            }
         };
         this.cordova.getActivity().runOnUiThread(runnable);
     }
@@ -276,7 +276,7 @@ public class Notification extends CordovaPlugin {
                 });
 
                 changeTextDirection(dlg);
-            };
+            }
         };
         this.cordova.getActivity().runOnUiThread(runnable);
     }
@@ -391,7 +391,7 @@ public class Notification extends CordovaPlugin {
                 });
 
                 changeTextDirection(dlg);
-            };
+            }
         };
         this.cordova.getActivity().runOnUiThread(runnable);
     }
