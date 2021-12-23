@@ -201,7 +201,7 @@ export class HelepComponent implements OnInit {
       this.padiNextImg = null;
       // this.padiText = null;
       // this.padiText = "TO JOIN YA PADI DEM, YOU GO NEED 1 TOKEN. YOU FIT BUY TOKEN FOR SHOP OR TRY YA LUCK WIT TUMBUM";
-      this.padiText = "Dis na token. U go need one any time u wan enta padi play.";
+      this.padiText = null;
     }
   }
 

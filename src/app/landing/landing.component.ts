@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { Facebook } from '@ionic-native/facebook/ngx';
 import { UserService } from '../user.service';
 import { SoundService } from '../sound.service';
 import { GeoService } from '../geo.service';
@@ -110,7 +110,7 @@ export class LandingComponent implements AfterViewInit {
   public isGoogleLogin = false;
   public user = null;
 
-  padiplayResult:string = "won";
+  padiplayResult:string = "";
 
   toastMessage:string="";
 
@@ -556,31 +556,7 @@ async fetchProfile(){
 
 fetchProfilePadi(sid){
     this.userService.fetchUser(sid).subscribe((res) => {
-
-      this.gamesplayed =  res["user"][0]["gamesplayed"];
-      this.storage.set('gamesplayed', Number(this.gamesplayed));
-
-      this.gameswon = res["user"][0]["gameswon"];
-      console.log('gameswon:',this.gameswon);
-      this.storage.set('gameswon', Number(this.gameswon));
-
-      this.gameslost = res["user"][0]["gameslost"];
-      this.storage.set('gameslost', Number(this.gameslost));
-
-      this.totalscore = res["user"][0]["totalscore"];
-      this.storage.set('totalscore', Number(this.totalscore));
-
-      this.winstreak = res["user"][0]["winstreak"];
-      this.storage.set('winstreak', Number(this.winstreak));
-
-      this.longestwinstreak = res["user"][0]["longestwinstreak"];
-      this.storage.set('longestwinstreak', Number(this.longestwinstreak));
-
-      this.averagescore = res["user"][0]["averagescore"];
-      this.storage.set('averagescore', Number(this.averagescore));
-
-      this.highestscore = res["user"][0]["highestscore"];
-      this.storage.set('highestscore', Number(this.highestscore));
+      this.updateProfile(res);
     });
 
 }
@@ -613,45 +589,14 @@ fetchProfileRemote(sid){
         this.storage.set('tokens', Number(this.tokens));
       }
 
-      this.gamesplayed =  res["user"][0]["gamesplayed"];
-      this.storage.set('gamesplayed', Number(this.gamesplayed));
-
-      this.gameswon = res["user"][0]["gameswon"];
-      console.log('gameswon:',this.gameswon);
-      this.storage.set('gameswon', Number(this.gameswon));
-
-      this.gameslost = res["user"][0]["gameslost"];
-      this.storage.set('gameslost', Number(this.gameslost));
-
-      this.totalscore = res["user"][0]["totalscore"];
-      this.storage.set('totalscore', Number(this.totalscore));
-
-      this.winstreak = res["user"][0]["winstreak"];
-      this.storage.set('winstreak', Number(this.winstreak));
-
-      this.longestwinstreak = res["user"][0]["longestwinstreak"];
-      this.storage.set('longestwinstreak', Number(this.longestwinstreak));
-
-      this.averagescore = res["user"][0]["averagescore"];
-      this.storage.set('averagescore', Number(this.averagescore));
-
-      this.highestscore = res["user"][0]["highestscore"];
-      this.storage.set('highestscore', Number(this.highestscore));
+      this.updateProfile(res);
     });
 
     this.logGameScore();
 }
 
 async logGameScore(){
-  let cowries;
-  await this.storage.get('cowries').then((val) => {
-    cowries = !val || val == null ? 0 : parseInt(val);
-
-    if(Number(this.cowries) < Number(cowries)){
-      this.cowries = cowries;
-      this.userService.logPlayerCowries(this.sabinusId, Number(cowries)).subscribe((res)=>{ });
-    }
-  });
+  this.userService.logPlayerCowries(this.sabinusId, Number(this.cowries)).subscribe((res)=>{ });
 }
 
 setGamePerks(){
@@ -662,7 +607,7 @@ setGamePerks(){
 backupProfile(){
   this.setGamePerks();
   this.logGameScore();
-  this.closeProfile();
+  //this.closeProfile();
 }
 
 introducePadiplay(){
@@ -734,6 +679,17 @@ closePadiPlay2(){
             this.challenger.currentstreak = res["stats"][0]["winstreak"];
             this.challenger.longestwinstreak = res["stats"][0]["longestwinstreak"];
             this.challenger.highestscore =  res["stats"][0]["highestscore"];
+            
+            this.winstreak=Number(this.challenger.currentstreak);
+            this.gamesplayed = Number(this.challenger.gamesplayed);
+            this.gameswon = Number(this.challenger.gameswon);
+            this.gameslost = Number(this.challenger.gameslost);
+            this.totalscore = Number(this.challenger.totalscore);
+            this.winstreak = Number(this.challenger.currentstreak);
+            this.longestwinstreak = Number(this.challenger.longestwinstreak);
+            this.averagescore = Number(this.challenger.averagescore);
+            this.highestscore = Number(this.challenger.highestscore);
+
             this.storage.set('gamesplayed', Number(this.challenger.gamesplayed));
             this.storage.set('gameswon', Number(this.challenger.gameswon));
             this.storage.set('gameslost', Number(this.challenger.gameslost));
@@ -749,7 +705,6 @@ closePadiPlay2(){
 
 introducePadiplay2Prod(){
   // alert(this.sabinusId);
-
   console.log("here opponent");
   if (!this.sabinusId || this.sabinusId == undefined || this.sabinusId == null) {
     $(".fbPane").fadeIn();
@@ -779,6 +734,7 @@ introducePadiplay2Prod(){
       this.challenger.gameslost = res["stats"][0]["gameslost"];
       this.challengerSelected = true;
 
+      this.updateProfile(res);
       this.storage.set('tokens', this.tokens);
     }
     console.log("Error:",this.error.msg);
@@ -791,6 +747,25 @@ introducePadiplay2Prod(){
        });
 }
 
+updateProfile(res){
+  this.gamesplayed = Number(res["user"][0]["gamesplayed"]);
+  this.gameswon = Number(res["user"][0]["gameswon"]);
+  this.gameslost = Number(res["user"][0]["gameslost"]);
+  this.totalscore = Number(res["user"][0]["totalscore"]);
+  this.winstreak = Number(res["user"][0]["winstreak"]);
+  this.longestwinstreak = Number(res["user"][0]["longestwinstreak"]);
+  this.averagescore = Number(res["user"][0]["averagescore"]);
+  this.highestscore = Number(res["user"][0]["highestscore"]);
+
+  this.storage.set('gamesplayed', Number(res["user"][0]["gamesplayed"]));
+  this.storage.set('gameswon', Number(res["user"][0]["gameswon"]));
+  this.storage.set('gameslost', Number(res["user"][0]["gameslost"]));
+  this.storage.set('totalscore', Number(res["user"][0]["totalscore"]));
+  this.storage.set('winstreak', Number(res["user"][0]["winstreak"]));
+  this.storage.set('longestwinstreak', Number(res["user"][0]["longestwinstreak"]));
+  this.storage.set('averagescore', Number(res["user"][0]["averagescore"]));
+  this.storage.set('highestscore', Number(res["user"][0]["highestscore"]));
+}
 selectOpponent(){
   if (this.opponentSelected) {
     return;
@@ -899,14 +874,14 @@ fetchNotifications(){
           }
           let min = Math.min.apply(Math,deadlineArr);
           if (min < 24) { this.minDeadline = Math.abs(24 - min)}
-    }else{
+          
+          this.fetchProfileRemote(this.sabinusId);
     }
     this.networkStatus = true;
   },function(){
     this.networkStatus = false;
     //this.toast("Check ya network make you try again");
   });
-  this.fetchProfileRemote(this.sabinusId);
 }
 
 analyseDeadline(dt){
@@ -944,22 +919,45 @@ async clickNotification(type, senderId, recepientid, gameid, nid){
     $(".resultImage").fadeIn();
     $(".resultImage").addClass("animate__tada");
 
+    this.fetchProfilePadi(recepientid);
     // just added
     if(this.padiplayResult == "won") {
-      await this.storage.get('juju').then((val) => {
+      this.storage.get('begibegi').then((val) => {
+        let begibegi = !val || val == null ? 1 : parseInt(val)+1;
+        this.storage.set('begibegi', begibegi);
+      });
+
+      this.storage.get('giraffes').then((val) => {
+        let giraffes = !val || val == null ? 1 : parseInt(val)+1;
+        this.storage.set('giraffes', giraffes);
+      });
+
+      this.storage.get('cowries').then((val) => {
+        let cowries = !val || val == null ? 1200 : parseInt(val)+1200;
+        this.storage.set('cowries', cowries);
+        this.cowries = cowries;
+      });
+
+      this.storage.get('juju').then((val) => {
         let juju = !val || val == null ? 1 : parseInt(val)+1;
         this.storage.set('juju', juju);
         this.juju = juju;
       });
 
-      await this.storage.get('tokens').then((val) => {
+      this.storage.get('tokens').then((val) => {
          let tokens = !val || val == null ? 2 : parseInt(val)+2;
          this.storage.set('tokens', tokens);
          this.tokens = tokens;
       });
+      this.backupProfile();
+    }else if (this.padiplayResult == "draw") {
+      // console.log("got here 2");
+      this.storage.get('tokens').then((val) => {
+        let tokens = !val || val == null ? 1 : parseInt(val)+1;
+        this.storage.set('tokens', tokens);
+      });
     }
 
-    this.fetchProfilePadi(recepientid);
   }
   //end if type == challenge
 }
@@ -979,11 +977,7 @@ markasRead(nid){
 }
 
 removeItem(nid) {
-  console.log("nid: ", nid);
-  console.log("notifications: ", JSON.stringify(this.notifications));
   this.notifications = this.notifications.filter( notification => notification.id !== nid );
-
-  console.log("notifications 2: ", JSON.stringify(this.notifications));
   this.notificationslength = this.notifications.length;
 
 }
@@ -1215,7 +1209,7 @@ async selectAwoof2(){
       perk = "totem";
       perkNumber = this.awoofNumbers[3];
       this.tumbumResultImage = "totem";
-      this.userService.logPlayerPerks(this.sabinusId,0,perkNumber,0,0);
+      this.userService.logPlayerPerks(this.sabinusId,0,0,0,perkNumber);
       break;
     case 5:
         perk = "giraffe";
@@ -1229,7 +1223,7 @@ async selectAwoof2(){
         perkNumber = this.awoofNumbers[5];
         this.tumbumResultImage = "cowries";
         this.setCowries(perkNumber);
-        this.userService.logPlayerPerks(this.sabinusId,0,0,perkNumber,0);
+        this.userService.logPlayerCowriesProgressive(this.sabinusId,perkNumber);
         break;
     case 7:
         perk = "begibegi";
@@ -1250,7 +1244,7 @@ async selectAwoof2(){
           perkNumber = this.awoofNumbers[8];
           this.tumbumResultImage = "cowries";
           this.setCowries(perkNumber);
-          this.userService.logPlayerPerks(this.sabinusId,perkNumber,0,0,0);
+          this.userService.logPlayerCowriesProgressive(this.sabinusId,perkNumber);
           break;
     default:
       // code block
@@ -1357,7 +1351,6 @@ showProfile(){
  }
 
 toast(tm){
-  console.log("HEre toast");
   this.toastMessage = tm;
   $(".toast").fadeIn();
   setTimeout(() => {

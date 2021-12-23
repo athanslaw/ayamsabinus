@@ -90,7 +90,7 @@
         <div class="potLetters fadeIn fadeTwo">
 <!--          <p>Hello</p>-->
           <img src="../../assets/game/bubble1.gif" class="bubbleSequence" id="bubble" alt="">
-            <div class="pl" *ngFor="let w of compactShuffled; let i = index"   [ngStyle]="{'animation-duration': [spin(i)]+'s'}" [style.transform]="getDegree(i)" (click)="selectLetter(w.idCode,w,i)"><b>
+            <div class="pl" *ngFor="let w of compactShuffled; let i = index"   [ngStyle]="{'opacity': w.selected ? 0.2 : 1 , 'animation-duration': [spin(i)]+'s'}" [style.transform]="getDegree(i)" (click)="selectLetter(w.idCode,w,i)"><b>
               <span *ngIf='isBubble && isBubble>0'>{{w.letter}}</span></b></div>
           
 <!-- :val removed  duplicate fade in           [ngStyle]="{'opacity': w.selected ? 0.2 : 1 , 'animation-duration': [spin(i)]+'s'}"&ndash;&gt;-->
@@ -147,7 +147,7 @@
       </div>
 
       <div class="woodBars">
-        <img (click)='landing()' style="right: 2.5%;" src="../../assets/settings/mainmenu.png" alt="" class="wBar">
+        <img style="right: 2.5%;" (click)='landing()' src="../../assets/settings/mainmenu.png" alt="" class="wBar">
         <img style="left: 2.5%;" [routerLink]="['/level']" src="../../assets/settings/levels.png" alt="" class="wBar">
         <img style="right: 2.5%;" [routerLink]="['/helep']" src="../../assets/settings/helep.png" alt="" class="wBar">
         <img style="left: 2.5%;" (click)='rate()' src="../../assets/settings/rateus.png" alt="" class="wBar">

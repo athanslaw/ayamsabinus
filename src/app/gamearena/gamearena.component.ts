@@ -110,8 +110,6 @@ export class GamearenaComponent implements OnInit {
 
   async ngOnInit() {
 
-    // this.storage.set('cowries', 200);
-
     this.soundStat = this.soundService.getSoundStat();
     this.sfxStat = this.soundService.getSfxStat();
 
@@ -233,11 +231,11 @@ export class GamearenaComponent implements OnInit {
     $(".pl").css({ opacity: 0 });
 
     this.compactShuffled = this.shuffle([].concat(...this.multiArray));
-    
+    /*
     this.compactShuffled = this.compactShuffled.filter((i) => {
       return !i.visible;
     })
-
+*/
     setTimeout(() => {
       this.squeezeLetters();
     }, 200);
@@ -334,15 +332,19 @@ export class GamearenaComponent implements OnInit {
     for (let i = 0; i < this.selectedLetters.length; i++) {
       wordString.push(this.selectedLetters[i].letter);
     }
-
+    let w = [];
     for (let j = 0; j < this.wordArray.length; j++) {
-      const w = this.wordArray[j];
+      w.push(this.wordArray[j]);
       //check for match in word array and simultaneously check compact version in multiarray to see if word has already been chosen
-      if (w == wordString.join("") && this.multiArray[j][0].visible == false) {
+      
+      
+      
+      if (w.join("") == wordString.join("") && this.multiArray[j][0].visible == false) {
         matchFound = true;
         wordPosition = j;
         break;
       }
+
     }
 
     if (matchFound) {
@@ -405,21 +407,13 @@ export class GamearenaComponent implements OnInit {
     this.sparkle_correct();
     // this.sparkle();
 
-    for (let i = 0; i < this.multiArray[wordPosition].length; i++) {
-
-      this.multiArray[wordPosition][i].visible = true;
-
+    for(let j=0; j <= wordPosition; j++){
+      for (let i = 0; i < this.multiArray[j].length; i++) {
+        this.multiArray[j][i].visible = true;
+      }
     }
-
     $(".wordRack").addClass("animate__bounce");
 
-    // this.cowries += 5;
-    // this.storage.set('cowries', this.cowries);
-
-    // this.score += 1;
-    // this.storage.set('score', this.score);
-
-    //remove bounce class from previous success
     await setTimeout(() => {
       $(".wordRack").removeClass("animate__bounce");
     }, 2000);
@@ -456,7 +450,7 @@ export class GamearenaComponent implements OnInit {
     this.cowries += cowrie_count;
     this.storage.set('cowries', Number(this.cowries));
 
-    this.score += 1;
+    this.score += cowrie_count;
     this.storage.set('score', Number(this.score));
 
 
@@ -663,7 +657,6 @@ export class GamearenaComponent implements OnInit {
 
     if (atLeastOneNotVisible.length > 0) {
 
-
       if (this.jujuCount >= 1) {
         this.sparkle2();
         this.jujuCount -= 1;
@@ -739,15 +732,12 @@ export class GamearenaComponent implements OnInit {
 
     }
 
-
   };
-
 
   jaraNotUsed(word) {
     let played = this.jaraPlayed.includes(word);
     return played;
   }
-
 
   activateJara() {
 
@@ -787,24 +777,53 @@ export class GamearenaComponent implements OnInit {
       this.jaraPercent = newPercent;
     }, 3000);
 
-    this.toast("Wehdone! You done collect Jara");
+    this.toast("Wehdone! You don collect Jara");
   }
 
+  rewardJara(){
+
+    let shuffleWithin = ["juju", "begibegi", "giraffes", "tokens", "cowries"];
+    let shuffleLabel = ["juju", "begibegi", "giraffing", "padiplay token", "cowrie"];
+  
+    const shuffle =   Math.round(Math.random() * 4);
+  
+    this.toast("Ya reward na 1 "+shuffleLabel[shuffle]);
+    this.soundService.playCowrieSound();
+  
+    this.setAddPerks(shuffleWithin[shuffle], 1);
+  
+  }
+  
+  async setAddPerks(perk_type, perk_value: number) {
+    await this.storage.get(perk_type).then((val) => {
+      let perksVal = !val || val == null ? perk_value : parseInt(val)+perk_value;
+      this.storage.set(perk_type, perksVal);
+
+      if (perk_type == 'juju') {
+        this.jujuCount += perksVal;
+      } else if (perk_type == 'begibegi') {
+        this.begibegiCount += perksVal;
+      } else if (perk_type == 'giraffes') {
+        this.girraffesCount += perksVal;
+      } else if (perk_type == 'cowries') {
+        this.cowries += perksVal;
+      }
+  });
+  }
 
   takeAm() {
     this.soundService.playCowrieSound();
     this.closeJara();
     this.jaraService.resetKomkom();
-    this.cowries += 50;
-    this.storage.set('cowries', Number(this.cowries));
+
+    this.animateCowries();
+    this.soundService.playCowrieSound();
+    this.rewardJara();
   }
-
-
 
   closeJara() {
     $(".jaraPane").fadeOut();
   }
-
 
   begibegi() {
     $(".begibegiPane").fadeIn().css({ display: "flex" });
@@ -814,46 +833,25 @@ export class GamearenaComponent implements OnInit {
     $(".begibegiPane").fadeOut()
   }
 
-
   selectBegibegiHole(letter, letterIndex, rowIndex) {
 
-    this.storage.get('begibegi').then((begibegi) => {
-      var begibegi_point = !begibegi || begibegi == null ? 0 : Number(begibegi);
-      if (begibegi_point >= 1) {
-        this.multiArray[rowIndex][letterIndex].hint = true;
-        // begibegi_point -= 150;
-        // this.cowries = Number(begibegi_point);
-        // this.storage.set('cowries', begibegi_point);
-        //let begibegi = Number(this.getBegiBegiCount());
-        console.log("correct begibegi: ", begibegi_point)
-        begibegi -= 1;
-        this.storage.set('begibegi', begibegi_point);
-        this.getPerkCount();
-        this.sparkle();
-      } else {
-        this.toast("Ya begi begi no reach. Make you try buy");
+    if (this.begibegiCount >= 1 || this.cowries > 30) {
+      this.multiArray[rowIndex][letterIndex].hint = true;
+      if(this.begibegiCount >= 1){
+        this.begibegiCount -= 1;
+        this.storage.set('begibegi', Number(this.begibegiCount));
       }
-      setTimeout(() => {
-        this.closeBegibegi();
-      }, 500);
-    });
-
-    // this.storage.get('begibegi').then((val) => {
-    //   var begibegi = !val || val == null ? 0 : val;
-    //   // console.log(begibegi);
-    //   if (begibegi > 3) {
-    //     this.multiArray[rowIndex][letterIndex].hint = true;
-    //     begibegi -= 3;
-    //     this.storage.set('begibegi', begibegi);
-    //     this.getPerkCount();
-    //     this.sparkle();
-    //   } else {
-    //     this.toast("Ya begi begi no reach. Make you try buy");
-    //   }
-    //   setTimeout(() => {
-    //     this.closeBegibegi();
-    //   }, 500);
-    // });
+      else{
+        this.cowries -= 30;
+        this.storage.set('cowries', Number(this.cowries));
+      }
+      this.sparkle();
+    } else {
+      this.toast("Ya cowrie no reach. Make you try buy");
+    }
+    setTimeout(() => {
+      this.closeBegibegi();
+    }, 500);
 
   }
 
@@ -862,8 +860,6 @@ export class GamearenaComponent implements OnInit {
       return !val || val == null ? 0 : val;
     });
   }
-
-
 
   dictionary() {
     $(".dictionary").fadeIn();
@@ -925,7 +921,6 @@ export class GamearenaComponent implements OnInit {
     return uuid;
   }
 
-
   shuffle(array) {
     let copy = [...array];
     return copy.sort(() => Math.random() - 0.5);
@@ -936,7 +931,6 @@ export class GamearenaComponent implements OnInit {
     let deg = i * 30 + 15;
     return `rotate(${deg}deg)`;
   }
-
 
   randomSticker(PosOrNeg) {
     // let pos = Math.floor(Math.random() * 34) + 1;
@@ -960,7 +954,6 @@ export class GamearenaComponent implements OnInit {
     this.animateSticker();
   }
 
-
   animateSticker() {
     var tl = gsap.timeline();
     tl.to(".sticker", { ease: "elastic.out(1, 0.3)", width: "80vw", left: "10vw", duration: 2.5 });
@@ -971,7 +964,6 @@ export class GamearenaComponent implements OnInit {
     return l !== ' ' ? `../../assets/alphabets/${l.toLowerCase()}.png` : '';
   }
 
-
   getRandomInbetween(min, max) {
   }
 
@@ -979,7 +971,6 @@ export class GamearenaComponent implements OnInit {
     return i == 0 ? 15 : i * 8;
     // return i * 20;
   }
-
 
   async fetchProfile() {
 
@@ -1031,7 +1022,6 @@ export class GamearenaComponent implements OnInit {
     this.appRate.promptForRating(true);
   }
 
-
   toast(tm) {
 
     this.toastMessage = tm;
@@ -1055,7 +1045,6 @@ export class GamearenaComponent implements OnInit {
     this.soundService.toggleSfx(this.sfxStat);
   }
 
-
   triggerVideo() {
     $(".videoPane").fadeIn().css({ display: 'flex' });
     this.startVideoTimer();
@@ -1068,7 +1057,6 @@ export class GamearenaComponent implements OnInit {
   closeVideo() {
     $(".videoPane").fadeOut();
   }
-
 
   startVideoTimer() {
 
@@ -1113,7 +1101,6 @@ export class GamearenaComponent implements OnInit {
     this.reward();
   }
 
-
   reward() {
     this.animateCowries();
     this.toast("Ya reward na 30 cowries");
@@ -1125,7 +1112,6 @@ export class GamearenaComponent implements OnInit {
     });
     this.roundStatus();
   }
-
 
   getPerkCount() {
 

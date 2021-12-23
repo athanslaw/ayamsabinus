@@ -7,9 +7,6 @@ import * as $ from 'jquery';
 import { gsap, TimelineLite, TimelineMax, TweenMax, Back, Power1 } from 'gsap';
 import { AppRate } from '@ionic-native/app-rate/ngx';
 import { UserService } from '../user.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry, map } from 'rxjs/operators';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
@@ -108,7 +105,7 @@ export class PadiplayComponent implements OnInit {
 
   settingsVisible:boolean = false;
 
-  padiplayResult:string = "won";
+  padiplayResult:string = "";
 
   toastMessage:string="";
 
@@ -250,26 +247,33 @@ joinGame(){
   this.wordsService.joinPadiplay(this.gamedata.gameId).subscribe((data) => {
 
       this.ngxService.stop();
-      console.log(data['words']);
+      if(data['data'] ==''){
+        this.toast('No vex, anoda padi don play dis game');
+        setTimeout(() => {
+          this.router.navigate(['/landing']);
+        }, 3500);
+        
+      }else{
+        console.log(data['words']);
 
-      this.gameid = data['gameid'];
-      this.levelWords = data['words'];
+        this.gameid = data['gameid'];
+        this.levelWords = data['words'];
 
 
-      //this.currentWord = this.levelWords[1];
-      this.currentWord = this.levelWords[this.levelMarker];
+        //this.currentWord = this.levelWords[1];
+        this.currentWord = this.levelWords[this.levelMarker];
 
-      this.currentWordSplit = this.split(this.currentWord.word);
-      this.wordArray = this.splitWords(this.currentWord.word);
+        this.currentWordSplit = this.split(this.currentWord.word);
+        this.wordArray = this.splitWords(this.currentWord.word);
 
-      this.setupCompact();
-      this.lastLetterInt = this.currentWordSplit.length - 1;
+        this.setupCompact();
+        this.lastLetterInt = this.currentWordSplit.length - 1;
 
-      this.startGame();
+        this.startGame();
 
-      //fetch in background while game has started
-      this.fetchJaraWords();
-
+        //fetch in background while game has started
+        this.fetchJaraWords();
+      }
 
     },
     //error callback
@@ -282,25 +286,11 @@ joinGame(){
 
 }
 
-
-
-// preStartGame(){
-
-//   $(".start1").fadeOut();
-
-//   setTimeout(() => {
-//     $(".start2").fadeIn();
-//   }, 1100);
-
-// }
-
-
 startGame(){
 
   this.gameStarted = true;
   this.startTimer();
   this.startLastPlayedCounter();
-  // $(".startPane").fadeOut();
 }
 
 
@@ -371,11 +361,13 @@ compactShuffle(){
   this.bubble();
   this.compactShuffled = this.shuffle([].concat(...this.multiArray));
   // REMOVE VISIBLE BOARD ELEMENTS FROM POT
+  /*
   this.compactShuffled.forEach((i,index)=>{
     if (i.visible) {
        this.compactShuffled.splice(index,1)
     }
   });
+  */
   setTimeout(() => {
     this.squeezeLetters();
   }, 200);
@@ -451,15 +443,19 @@ submitTray(){
     }
   }
   */
+
+
+  let w = [];
   for (let j = 0; j < this.wordArray.length; j++) {
-      const w = this.wordArray[j];
-      console.log("words:",wordString+" "+w);
-      //check for match in word array and simultaneously check compact version in multiarray to see if word has already been chosen
-      if (w == wordString.join("") && this.multiArray[j][0].visible == false) {
-          matchFound = true;
-          wordPosition = j;
-          break;
-      }
+    w.push(this.wordArray[j]);
+    //check for match in word array and simultaneously check compact version in multiarray to see if word has already been chosen
+    
+    if (w.join("") == wordString.join("") && this.multiArray[j][0].visible == false) {
+      matchFound = true;
+      wordPosition = j;
+      break;
+    }
+
   }
 
   // if it's greater than 0 index join all and check at once
@@ -499,8 +495,11 @@ wrongSelections(){
 
 rightSelections(wordPosition){
   // console.log(this.multiArray[wordPosition]);
-  for (let i = 0; i < this.multiArray[wordPosition].length; i++) {
-    this.multiArray[wordPosition][i].visible = true;
+  
+  for(let j=0; j <= wordPosition; j++){
+    for (let i = 0; i < this.multiArray[j].length; i++) {
+      this.multiArray[j][i].visible = true;
+    }
   }
 
   $(".wordRack").addClass("animate__bounce");
@@ -565,29 +564,62 @@ submitScore(){
 
       if (this.gamedata.role == "opponent") {
             if (data["winstat"] == "won") {
-                  // console.log("got here");
-                  this.padiplayResult = "won";
-                  $(".padiplayResult").fadeIn().css({display:"flex"});
-                  $(".resultImage").fadeIn();
-                  $(".resultImage").addClass("animate__tada");
+              // console.log("got here");
+              this.padiplayResult = "won";
+
+              this.storage.get('begibegi').then((val) => {
+                let begibegi = !val || val == null ? 1 : parseInt(val)+1;
+                this.storage.set('begibegi', begibegi);
+              });
+        
+              this.storage.get('giraffes').then((val) => {
+                let giraffes = !val || val == null ? 1 : parseInt(val)+1;
+                this.storage.set('giraffes', giraffes);
+              });
+        
+              this.storage.get('cowries').then((val) => {
+                let cowries = !val || val == null ? 1200 : parseInt(val)+1200;
+                this.storage.set('cowries', cowries);
+                this.cowries = cowries;
+              });
+        
+              this.storage.get('juju').then((val) => {
+                let juju = !val || val == null ? 1 : parseInt(val)+1;
+                this.storage.set('juju', juju);
+              });
+        
+              this.storage.get('tokens').then((val) => {
+                  let tokens = !val || val == null ? 2 : parseInt(val)+2;
+                  this.storage.set('tokens', tokens);
+              });
+
+              $(".padiplayResult").fadeIn().css({display:"flex"});
+              $(".resultImage").fadeIn();
+              $(".resultImage").addClass("animate__tada");
             } else if (data["winstat"] == "lost") {
-                  // console.log("got here 2");
-                  this.padiplayResult = "lost";
-                  $(".padiplayResult").fadeIn().css({display:"flex"});
-                  $(".resultImage").fadeIn();
-                  $(".resultImage").addClass("animate__tada");
+              // console.log("got here 2");
+              this.padiplayResult = "lost";
+              $(".padiplayResult").fadeIn().css({display:"flex"});
+              $(".resultImage").fadeIn();
+              $(".resultImage").addClass("animate__tada");
             } else {
-                  // console.log("got here 2");
-                  this.padiplayResult = "draw";
-                  $(".padiplayResult").fadeIn().css({display:"flex"});
-                  $(".resultImage").fadeIn();
-                  $(".resultImage").addClass("animate__tada");
+              // console.log("got here 2");
+              this.storage.get('tokens').then((val) => {
+                let tokens = !val || val == null ? 1 : parseInt(val)+1;
+                this.storage.set('tokens', tokens);
+              });
+
+              this.padiplayResult = "draw";
+              $(".padiplayResult").fadeIn().css({display:"flex"});
+              $(".resultImage").fadeIn();
+              $(".resultImage").addClass("animate__tada");
             }
       } else {
         //if challenger
         $(".timeUpPane").fadeIn().css({display: "flex"});
 
       }
+      this.fetchProfileRemote(this.sabinusId);
     },
     //error callback
     (error)=>{
@@ -597,6 +629,19 @@ submitScore(){
     }
   );
 
+}
+
+fetchProfileRemote(sid){
+  this.userService.fetchUser(sid).subscribe((res) => {
+    this.storage.set('gamesplayed', Number(res["user"][0]["gamesplayed"]));
+    this.storage.set('gameswon', Number(res["user"][0]["gameswon"]));
+    this.storage.set('gameslost', Number(res["user"][0]["gameslost"]));
+    this.storage.set('totalscore', Number(res["user"][0]["totalscore"]));
+    this.storage.set('winstreak', Number(res["user"][0]["winstreak"]));
+    this.storage.set('longestwinstreak', Number(res["user"][0]["longestwinstreak"]));
+    this.storage.set('averagescore', Number(res["user"][0]["averagescore"]));
+    this.storage.set('highestscore', Number(res["user"][0]["highestscore"]));
+  });
 }
 
 closeResult(){
@@ -763,9 +808,6 @@ activateJara(){
     return;
   }
 
-  // this.cowries +=10;
-  // this.storage.set('cowries', this.cowries);
-
   let activeWord = [];
 
   this.selectedLetters.forEach((letter,index)=>{ activeWord.push(letter.letter) });
@@ -820,40 +862,25 @@ closeBegibegi(){
   $(".begibegiPane").fadeOut()
 }
 
-
-// selectBegibegiHole(letter, letterIndex, rowIndex){
-//   this.storage.get('begibegi').then((val) => {
-//         var begibegi = !val || val == null ? 0 : val;
-//         // console.log(begibegi);
-//         if (begibegi > 3) {
-//           this.multiArray[rowIndex][letterIndex].hint = true;
-//           begibegi -= 3;
-//           this.storage.set('begibegi', begibegi);
-//           this.getPerkCount();
-//         }else{
-//           this.toast("Ya begi begi no reach. Make you try buy");
-//         }
-//         setTimeout(() => {
-//           this.closeBegibegi();
-//         }, 500);
-//   });
-// }
-
 selectBegibegiHole(letter, letterIndex, rowIndex){
-  this.storage.get('cowries').then((cowries_val) => {
-    var cowrie_point = !cowries_val || cowries_val == null ? 0 : cowries_val;
-    if (cowrie_point >= 150) {
+    if (this.begibegiCount >= 1 || this.cowries >= 30) {
       this.multiArray[rowIndex][letterIndex].hint = true;
-      cowrie_point -= 150;
-      this.storage.set('cowries', cowrie_point);
-      this.getPerkCount();
+      
+      if(this.begibegiCount >= 1){
+        this.begibegiCount -= 1;
+        console.log("begibegipoint", this.begibegiCount)
+        this.storage.set('begibegi', Number(this.begibegiCount));
+      }
+      else{
+        this.cowries -= 30;
+        this.storage.set('cowries', Number(this.cowries));
+      }
     } else {
-      this.toast("Ya begi begi no reach. Make you try buy");
+      this.toast("Ya cowrie no reach. Make you try buy");
     }
     setTimeout(() => {
       this.closeBegibegi();
     }, 500);
-  });
 }
 
 dictionary(){
