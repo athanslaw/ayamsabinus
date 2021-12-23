@@ -4,7 +4,7 @@ platform :ios, '11.0'
 use_frameworks!
 target 'Sabinus' do
 	project 'Sabinus.xcodeproj'
-	pod 'FBSDKCoreKit', '5.15.0'
-	pod 'FBSDKLoginKit', '5.15.0'
-	pod 'FBSDKShareKit', '5.15.0'
+	pod 'FBSDKCoreKit', '11.1.0'
+	pod 'FBSDKLoginKit', '11.1.0'
+	pod 'FBSDKShareKit', '11.1.0'
 end

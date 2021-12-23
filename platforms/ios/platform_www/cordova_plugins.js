@@ -64,14 +64,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-      "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-      "pluginId": "cordova-plugin-facebook4",
-      "clobbers": [
-        "facebookConnectPlugin"
-      ]
-    },
-    {
       "id": "cordova-plugin-facebook-connect.FacebookConnectPlugin",
       "file": "plugins/cordova-plugin-facebook-connect/www/facebook-native.js",
       "pluginId": "cordova-plugin-facebook-connect",
@@ -90,7 +82,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-apprate": "1.5.0",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-background-mode": "0.7.3",
-    "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-facebook-connect": "3.2.0"
   };
 });

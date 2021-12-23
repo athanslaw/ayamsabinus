@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.3</string>
+	<string>1.0.14</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.3</string>
+	<string>1.0.14</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
@@ -77,8 +77,12 @@
 	<string>416232732769644</string>
 	<key>FacebookDisplayName</key>
 	<string>sabinus</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
 	<key>FacebookHybridAppEvents</key>
 	<string>false</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -97,68 +101,36 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb416232732769644</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb416232732769644</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb416232732769644</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb416232732769644</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb416232732769644</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb416232732769644</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb416232732769644</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb416232732769644FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string>
-				<string>OTHER_APP_SCHEMES_PLACEHOLDER</string>
+				
 			</array>
 		</dict>
 	</array>
+	<key>FacebookClientToken</key>
+	<string>b66ffa9c8424da279836bc4699c3965d</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
-		<string>fb-messenger-api</string>
+		<string>fbapi20130214</string>
+		<string>fbapi20130410</string>
+		<string>fbapi20130702</string>
+		<string>fbapi20131010</string>
+		<string>fbapi20131219</string>
+		<string>fbapi20140410</string>
+		<string>fbapi20140116</string>
+		<string>fbapi20150313</string>
+		<string>fbapi20150629</string>
+		<string>fbapi20160328</string>
+		<string>fbauth</string>
+		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
+		<string>fb-messenger-api</string>
 	</array>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-	<true/>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-	<true/>
-	<key>FacebookUrlSchemeSuffix</key>
-	<string>FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string>
-	<key>FacebookAutoLogAppEventsEnabled_PLACEHOLDER</key>
-	<string>FACEBOOK_AUTO_LOG_APP_EVENTS_PLACEHOLDER</string>
-	<key>FacebookAdvertiserIDCollectionEnabled_PLACEHOLDER</key>
-	<string>FACEBOOK_ADVERTISER_ID_COLLECTION_PLACEHOLDER</string>
+	
+	
+	
+	
+	
+	
 </dict>
 </plist>

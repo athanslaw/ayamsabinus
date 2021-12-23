@@ -30,31 +30,31 @@
             },
             {
               "xml": "<feature name=\"FacebookConnectPlugin\"><param name=\"ios-package\" value=\"FacebookConnectPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<plugin name=\"FacebookConnectPlugin\" value=\"FacebookConnectPlugin\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<access origin=\"https://m.facebook.com\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<access origin=\"https://graph.facebook.com\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<access origin=\"https://api.facebook.com\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<access origin=\"https://*.fbcdn.net\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<access origin=\"https://*.akamaihd.net\" />",
-              "count": 2
+              "count": 1
             }
           ]
         }
@@ -70,41 +70,13 @@
           "FacebookAppID": [
             {
               "xml": "<string>416232732769644</string>",
-              "count": 2
+              "count": 1
             }
           ],
           "FacebookDisplayName": [
             {
               "xml": "<string>sabinus</string>",
-              "count": 2
-            }
-          ],
-          "FacebookHybridAppEvents": [
-            {
-              "xml": "<string>false</string>",
-              "count": 2
-            }
-          ],
-          "CFBundleURLTypes": [
-            {
-              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb416232732769644</string></array></dict></array>",
               "count": 1
-            },
-            {
-              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb416232732769644FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string><string>OTHER_APP_SCHEMES_PLACEHOLDER</string></array></dict></array>",
-              "count": 1
-            }
-          ],
-          "NSAppTransportSecurity": [
-            {
-              "xml": "<dict><key>NSExceptionDomains</key><dict><key>facebook.com</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>fbcdn.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>akamaihd.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict></dict></dict>",
-              "count": 2
-            }
-          ],
-          "LSApplicationQueriesSchemes": [
-            {
-              "xml": "<array><string>fbapi</string><string>fb-messenger-api</string><string>fbauth2</string><string>fbshareextension</string></array>",
-              "count": 2
             }
           ],
           "FacebookUrlSchemeSuffix": [
@@ -119,9 +91,33 @@
               "count": 1
             }
           ],
+          "FacebookHybridAppEvents": [
+            {
+              "xml": "<string>false</string>",
+              "count": 1
+            }
+          ],
           "FacebookAdvertiserIDCollectionEnabled_PLACEHOLDER": [
             {
               "xml": "<string>FACEBOOK_ADVERTISER_ID_COLLECTION_PLACEHOLDER</string>",
+              "count": 1
+            }
+          ],
+          "CFBundleURLTypes": [
+            {
+              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb416232732769644FACEBOOK_URL_SCHEME_SUFFIX_PLACEHOLDER</string><string>OTHER_APP_SCHEMES_PLACEHOLDER</string></array></dict></array>",
+              "count": 1
+            }
+          ],
+          "NSAppTransportSecurity": [
+            {
+              "xml": "<dict><key>NSExceptionDomains</key><dict><key>facebook.com</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>fbcdn.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>akamaihd.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict></dict></dict>",
+              "count": 1
+            }
+          ],
+          "LSApplicationQueriesSchemes": [
+            {
+              "xml": "<array><string>fbapi</string><string>fb-messenger-api</string><string>fbauth2</string><string>fbshareextension</string></array>",
               "count": 1
             }
           ]
@@ -155,13 +151,6 @@
       "PACKAGE_NAME": "io.sabinus.app"
     },
     "cordova-plugin-background-mode": {
-      "PACKAGE_NAME": "io.sabinus.app"
-    },
-    "cordova-plugin-facebook4": {
-      "APP_ID": "416232732769644",
-      "APP_NAME": "sabinus",
-      "FACEBOOK_HYBRID_APP_EVENTS": "false",
-      "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0",
       "PACKAGE_NAME": "io.sabinus.app"
     },
     "cordova-plugin-facebook-connect": {
@@ -244,14 +233,6 @@
       ]
     },
     {
-      "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-      "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-      "pluginId": "cordova-plugin-facebook4",
-      "clobbers": [
-        "facebookConnectPlugin"
-      ]
-    },
-    {
       "id": "cordova-plugin-facebook-connect.FacebookConnectPlugin",
       "file": "plugins/cordova-plugin-facebook-connect/www/facebook-native.js",
       "pluginId": "cordova-plugin-facebook-connect",
@@ -270,7 +251,6 @@
     "cordova-plugin-apprate": "1.5.0",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-background-mode": "0.7.3",
-    "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-facebook-connect": "3.2.0"
   }
 }
