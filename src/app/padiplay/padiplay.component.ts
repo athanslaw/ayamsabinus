@@ -361,13 +361,11 @@ compactShuffle(){
   this.bubble();
   this.compactShuffled = this.shuffle([].concat(...this.multiArray));
   // REMOVE VISIBLE BOARD ELEMENTS FROM POT
-  /*
-  this.compactShuffled.forEach((i,index)=>{
-    if (i.visible) {
-       this.compactShuffled.splice(index,1)
-    }
+  
+  this.compactShuffled = this.compactShuffled.filter((i)=>{
+    return i.letter !== '?'
   });
-  */
+  
   setTimeout(() => {
     this.squeezeLetters();
   }, 200);

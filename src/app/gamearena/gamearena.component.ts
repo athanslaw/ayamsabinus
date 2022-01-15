@@ -198,7 +198,7 @@ export class GamearenaComponent implements OnInit {
 
     if (this.wordArray.length > 2) {
       // Between 0 and max
-      randomVisibleWordPosition = Math.floor(Math.random() * (this.wordArray.length));
+      randomVisibleWordPosition = Math.floor(Math.random() * (this.wordArray.length -1));
     }
 
     this.wordArray.forEach((word, wordIndex) => {
@@ -218,6 +218,7 @@ export class GamearenaComponent implements OnInit {
       });
 
       this.multiArray.push(compact);
+      console.log("Ameh", this.multiArray);
 
     })
 
@@ -231,11 +232,11 @@ export class GamearenaComponent implements OnInit {
     $(".pl").css({ opacity: 0 });
 
     this.compactShuffled = this.shuffle([].concat(...this.multiArray));
-    /*
+    
     this.compactShuffled = this.compactShuffled.filter((i) => {
-      return !i.visible;
+      return i.letter !== '?'
     })
-*/
+
     setTimeout(() => {
       this.squeezeLetters();
     }, 200);
@@ -1064,13 +1065,13 @@ export class GamearenaComponent implements OnInit {
     $(".videoTime").fadeIn();
 
     let video = <HTMLVideoElement>document.getElementById("video");
-    video.currentTime = 0;
     let vidSrc = <HTMLVideoElement>document.getElementById("vidSrc");
     const timer = document.getElementById("vtime");
 
     vidSrc.src = "https://ayamsabinus.com/sabinus-api/ads/ad.mp4";
     video.play();
 
+    video.currentTime = 0;
     this.soundService.toggleSound(false);
 
     var vidInterval = setInterval(function () {
@@ -1095,7 +1096,6 @@ export class GamearenaComponent implements OnInit {
   skip() {
     let video = <HTMLVideoElement>document.getElementById("video");
     video.pause;
-    video.currentTime = 0;
     this.soundService.toggleSound(true);
     this.closeVideo();
     this.reward();

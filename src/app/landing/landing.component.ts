@@ -173,18 +173,14 @@ export class LandingComponent implements AfterViewInit {
 
     this.notificationInterval=setInterval(()=>{
       this.fetchNotifications();
-    },30000);
+    },10000);
 
     this.platform.pause.subscribe(()=>{
       console.log("paused");
       this.soundService.stopThemeSong();
-      clearInterval(this.refreshProfileInterval);
     })
     this.platform.resume.subscribe(()=>{
       console.log("resumed");
-      this.refreshProfileInterval =setInterval(()=>{
-        this.refreshProfile();
-      },10000);
       this.soundService.playThemeSong();
     })
 
@@ -584,7 +580,7 @@ fetchProfileRemote(sid){
         this.storage.set('begibegi', Number(this.begibegi));
       }
 
-      if(Number(this.tokens) < Number(res["user"][0]["token"])){
+      if(Number(this.tokens) < Number(res["user"][0]["token"]) && Number(this.tokens) >=0){
         this.tokens = res["user"][0]["tokens"];
         this.storage.set('tokens', Number(this.tokens));
       }
@@ -612,11 +608,9 @@ backupProfile(){
 
 introducePadiplay(){
   if (this.tokens < 1) {
-
     this.toast("Ya totem no reach. Make you try buy");
     return;
   }else{
-
     $(".padiPane").fadeIn();
   }
 }
@@ -844,7 +838,9 @@ playGame(){
   if (!this.opponentSelected) {
     return;
   }
-  this.tokens -= 1;
+  if(Number(this.tokens) > 0){
+    this.tokens -= 1;
+  }
   this.storage.set('tokens', Number(this.tokens));
 
   let playdata = {
@@ -874,9 +870,8 @@ fetchNotifications(){
           }
           let min = Math.min.apply(Math,deadlineArr);
           if (min < 24) { this.minDeadline = Math.abs(24 - min)}
-          
-          this.fetchProfileRemote(this.sabinusId);
     }
+    this.fetchProfileRemote(this.sabinusId);
     this.networkStatus = true;
   },function(){
     this.networkStatus = false;
@@ -1467,12 +1462,12 @@ startVideoTimer(){
   $(".skip").css({display: 'none'});
   $(".videoTime").fadeIn();
   let video = <HTMLVideoElement> document.getElementById("video");
-  video.currentTime = 0;
   let vidSrc = <HTMLVideoElement> document.getElementById("vidSrc");
   const timer = document.getElementById("vtime");
 
   vidSrc.src = "https://ayamsabinus.com/sabinus-api/ads/ad.mp4";
   video.play();
+  video.currentTime = 0;
 
   this.soundService.toggleSound(false);
 
@@ -1505,7 +1500,6 @@ toggleSfx() {
 skip(){
   let video = <HTMLVideoElement> document.getElementById("video");
   video.pause;
-  video.currentTime = 0;
   this.soundService.toggleSound(true);
   this.closeVideo();
   this.reward();
